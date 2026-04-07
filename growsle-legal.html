@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Growsle — Legal & Privacy Centre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#080808;--deep:#0F0F0F;--card:#141414;--card2:#1A1A1A;
+  --gold:#C9A84C;--gold-lt:#E2C97E;--gold-dim:rgba(201,168,76,0.1);
+  --gold-bdr:rgba(201,168,76,0.22);
+  --white:#FAFAF8;--text:#B8B0A0;--text-dim:rgba(184,176,160,0.45);
+  --border:rgba(201,168,76,0.13);
+  --green:#6B9E6B;--red:#A93226;--blue:#4A7FA5;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:200;}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:22px 64px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-back{display:flex;align-items:center;gap:10px;font-size:.65rem;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+
+/* HERO */
+.legal-hero{padding:130px 64px 64px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.legal-hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
+.eyebrow-line{width:32px;height:1px;background:var(--gold);}
+.eyebrow-text{font-size:.6rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;letter-spacing:-1px;line-height:1.05;color:var(--white);margin-bottom:16px;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:.88rem;font-weight:300;line-height:1.85;color:var(--text);max-width:560px;margin-bottom:28px;letter-spacing:.3px;}
+.hero-date{display:inline-flex;align-items:center;gap:12px;font-size:.62rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+.hero-date::before{content:'';width:20px;height:1px;background:var(--border);}
+
+/* LAYOUT */
+.legal-layout{display:grid;grid-template-columns:260px 1fr;max-width:1200px;margin:0 auto;padding:56px 64px;gap:0;align-items:start;}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:88px;padding-right:48px;border-right:1px solid var(--border);}
+.sidebar-label{font-size:.58rem;font-weight:300;letter-spacing:3.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px;}
+.sidebar-nav{list-style:none;}
+.sidebar-nav li{margin-bottom:2px;}
+.sidebar-nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:.75rem;font-weight:300;letter-spacing:.5px;color:var(--text);text-decoration:none;transition:all .2s;border-left:1px solid transparent;}
+.sidebar-nav a:hover{color:var(--gold);border-left-color:var(--gold);}
+.sidebar-nav a.active{color:var(--gold);border-left-color:var(--gold);}
+.sidebar-nav .nav-dot{width:4px;height:4px;border-radius:50%;background:var(--text-dim);flex-shrink:0;transition:background .2s;}
+.sidebar-nav a:hover .nav-dot,.sidebar-nav a.active .nav-dot{background:var(--gold);}
+.sidebar-warning{margin-top:32px;padding:18px;border:1px solid rgba(169,50,38,.25);background:rgba(169,50,38,.05);}
+.sidebar-warning p{font-size:.72rem;font-weight:300;line-height:1.6;color:var(--red);letter-spacing:.3px;}
+
+/* CONTENT */
+.legal-content{padding-left:64px;}
+.legal-section{margin-bottom:4px;scroll-margin-top:100px;border:1px solid var(--border);margin-bottom:16px;}
+.section-header{display:flex;align-items:flex-start;gap:18px;padding:32px;border-bottom:1px solid var(--border);}
+.section-icon{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--card);}
+.section-header-text h2{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--white);letter-spacing:.3px;margin-bottom:3px;}
+.section-header-text p{font-size:.72rem;font-weight:300;letter-spacing:.5px;color:var(--text-dim);}
+.section-body{padding:32px;}
+
+h3{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:.5px;margin:28px 0 12px;text-transform:uppercase;font-size:.72rem;}
+h3:first-child{margin-top:0;}
+p{font-size:.84rem;font-weight:300;line-height:1.9;color:var(--text);margin-bottom:14px;letter-spacing:.3px;}
+p:last-child{margin-bottom:0;}
+ul,ol{padding-left:0;list-style:none;margin-bottom:14px;}
+ul li,ol li{font-size:.82rem;font-weight:300;color:var(--text);line-height:1.8;padding:7px 0 7px 20px;position:relative;border-bottom:1px solid rgba(201,168,76,.06);letter-spacing:.2px;}
+ul li::before{content:'';position:absolute;left:0;top:16px;width:4px;height:4px;border-radius:50%;background:var(--gold);}
+ol{counter-reset:item;}
+ol li::before{content:counter(item)".";counter-increment:item;position:absolute;left:0;top:7px;color:var(--gold);font-size:.72rem;font-weight:400;letter-spacing:1px;}
+strong{font-weight:500;color:var(--white);}
+a{color:var(--gold);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.highlight-box{background:var(--gold-dim);border:1px solid var(--gold-bdr);padding:18px 20px;margin:18px 0;}
+.highlight-box p{color:var(--white);font-weight:300;margin:0;font-size:.82rem;}
+.warning-box{background:rgba(169,50,38,.07);border:1px solid rgba(169,50,38,.2);padding:18px 20px;margin:18px 0;}
+.warning-box p{color:var(--red);font-weight:300;margin:0;font-size:.82rem;}
+.info-box{background:rgba(74,127,165,.07);border:1px solid rgba(74,127,165,.2);padding:18px 20px;margin:18px 0;}
+.info-box p{color:var(--blue);font-weight:300;margin:0;font-size:.82rem;}
+.green-box{background:rgba(107,158,107,.07);border:1px solid rgba(107,158,107,.2);padding:18px 20px;margin:18px 0;}
+.green-box p{color:var(--green);font-weight:300;margin:0;font-size:.82rem;}
+
+.data-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.8rem;}
+.data-table th{background:var(--card);padding:10px 14px;text-align:left;font-weight:400;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--border);}
+.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);font-weight:300;line-height:1.5;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--card);}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:20px;border:1px solid var(--border);}
+.contact-card{background:var(--card);padding:22px;text-align:center;transition:background .2s;}
+.contact-card:hover{background:var(--card2);}
+.c-icon{font-size:1.4rem;margin-bottom:10px;}
+.c-label{font-size:.58rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
+.c-val{font-size:.8rem;font-weight:300;color:var(--gold);letter-spacing:.3px;}
+.divider{height:1px;background:var(--border);margin:24px 0;}
+
+/* AGREEMENT BAR */
+.agreement-bar{background:var(--deep);border-top:1px solid var(--border);padding:20px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:sticky;bottom:0;z-index:50;}
+.agreement-bar::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.agreement-bar p{font-size:.72rem;font-weight:300;color:var(--text);max-width:600px;letter-spacing:.3px;}
+.agreement-bar p strong{color:var(--gold);font-weight:400;}
+.agree-btn{background:var(--gold);color:var(--black);padding:11px 32px;border:none;font-family:'Jost',sans-serif;font-size:.62rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.agree-btn:hover{background:var(--gold-lt);}
+
+/* FOOTER */
+footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);}
+.footer-logo span{color:var(--gold);}
+footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);}
+.footer-links{display:flex;gap:22px;}
+.footer-links a{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--gold);}
+
+@media(max-width:900px){.legal-layout{grid-template-columns:1fr;padding:32px 24px;}.sidebar{position:static;padding-right:0;border-right:none;border-bottom:1px solid var(--border);padding-bottom:32px;margin-bottom:32px;}.legal-content{padding-left:0;}.legal-hero{padding:110px 24px 48px;}.agreement-bar{padding:16px 24px;}footer{padding:28px 24px;flex-direction:column;align-items:flex-start;}.contact-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="growsle-landing.html" class="logo">Grow<span>sle</span></a>
+  <a href="growsle-landing.html" class="nav-back">← Back to Growsle</a>
+</nav>
+
+<div class="legal-hero">
+  <div class="hero-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Legal & Privacy Centre</div></div>
+  <h1 class="hero-title">Transparency you can<br/><em>trust completely.</em></h1>
+  <p class="hero-sub">We believe every family deserves to know exactly how Growsle works, what data we collect, and how we protect what matters most — your children. This is our full commitment to you.</p>
+  <div class="hero-date">Last updated: April 5, 2026</div>
+</div>
+
+<div class="legal-layout">
+  <aside class="sidebar">
+    <div class="sidebar-label">Contents</div>
+    <ul class="sidebar-nav">
+      <li><a href="#terms" class="active"><span class="nav-dot"></span>Terms of Service</a></li>
+      <li><a href="#privacy"><span class="nav-dot"></span>Privacy Policy</a></li>
+      <li><a href="#children"><span class="nav-dot"></span>Children's Privacy</a></li>
+      <li><a href="#security"><span class="nav-dot"></span>Security Policy</a></li>
+      <li><a href="#ai"><span class="nav-dot"></span>AI Disclaimer</a></li>
+      <li><a href="#medical"><span class="nav-dot"></span>Medical Disclaimer</a></li>
+      <li><a href="#cookies"><span class="nav-dot"></span>Cookie Policy</a></li>
+      <li><a href="#contact"><span class="nav-dot"></span>Contact & Disputes</a></li>
+    </ul>
+    <div class="sidebar-warning">
+      <p><strong>Not medical advice.</strong> Growsle's AI provides general parenting guidance only — never a substitute for professional medical, psychological, or legal advice.</p>
+    </div>
+  </aside>
+
+  <main class="legal-content">
+
+    <!-- TERMS -->
+    <section class="legal-section" id="terms">
+      <div class="section-header">
+        <div class="section-icon">📋</div>
+        <div class="section-header-text"><h2>Terms of Service</h2><p>Your agreement with Growsle when using our platform</p></div>
+      </div>
+      <div class="section-body">
+        <h3>1. Acceptance of Terms</h3>
+        <p>By accessing or using Growsle ("the Service," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Service. These Terms apply to all visitors, users, and others who access or use Growsle.</p>
+        <div class="highlight-box"><p><strong>Plain English:</strong> By signing up or using Growsle in any way, you agree to these rules. They protect both you and us — please read them carefully.</p></div>
+
+        <h3>2. Description of Service</h3>
+        <p>Growsle is an AI-powered parenting guidance platform providing personalised daily tips, milestone tracking, bedtime story generation, and parenting Q&A based on your child's age and developmental stage. The Service is offered on a subscription basis with a free tier and paid membership plans.</p>
+
+        <h3>3. Eligibility</h3>
+        <ul>
+          <li>You must be at least 18 years of age to create an account and use Growsle</li>
+          <li>You must be a legal guardian or parent of any child whose information you enter</li>
+          <li>You must provide accurate, truthful registration information at all times</li>
+          <li>One account per person — creating multiple accounts to circumvent plan limits is prohibited</li>
+          <li>Growsle is available globally but complies with local laws; availability may be restricted in certain regions</li>
+        </ul>
+
+        <h3>4. Account Responsibilities</h3>
+        <p>You are responsible for maintaining the confidentiality of your account credentials and all activities that occur under your account. Notify us immediately at <strong>legal@growsle.com</strong> of any unauthorised use. Growsle cannot be liable for loss or damage arising from your failure to comply with this obligation.</p>
+
+        <h3>5. Subscription, Billing & Cancellation</h3>
+        <ul>
+          <li><strong>Free Plan:</strong> Access to limited features at no cost, no credit card required</li>
+          <li><strong>Paid Plans:</strong> Billed monthly or annually as selected at checkout via Stripe</li>
+          <li><strong>Cancellation:</strong> Cancel anytime. Access continues until the end of your billing period. No partial refunds for mid-period cancellations</li>
+          <li><strong>Refunds:</strong> We offer a 7-day money-back guarantee for first-time subscribers who are unsatisfied</li>
+          <li><strong>Price Changes:</strong> We will provide 30 days' written notice before any price increase takes effect</li>
+          <li><strong>Failed Payments:</strong> Accounts are downgraded to the free tier after a 7-day grace period following a failed payment</li>
+        </ul>
+
+        <h3>6. Acceptable Use</h3>
+        <p>You agree NOT to use Growsle to:</p>
+        <ul>
+          <li>Share, sell, or distribute your account access to others</li>
+          <li>Reverse engineer, copy, or reproduce any part of the Service</li>
+          <li>Submit false, misleading, or fraudulent information</li>
+          <li>Scrape, harvest, or extract data from the platform by automated means</li>
+          <li>Use the Service for commercial purposes without prior written permission</li>
+          <li>Impersonate any person, entity, or Growsle staff member</li>
+          <li>Transmit harmful, abusive, or unlawful content through the Service</li>
+          <li>Interfere with or disrupt the integrity or performance of the Service</li>
+        </ul>
+
+        <h3>7. Intellectual Property</h3>
+        <p>All content, features, and functionality of Growsle — including text, graphics, logos, AI models, and software — are the exclusive property of Growsle and are protected by copyright, trademark, and other intellectual property laws. You are granted a limited, non-exclusive, non-transferable licence to use the Service for personal, non-commercial purposes only.</p>
+
+        <h3>8. Termination</h3>
+        <p>Growsle reserves the right to suspend or terminate your account at any time, with or without notice, if you violate these Terms or engage in conduct harmful to the platform, other users, or the public. Upon termination, your right to access the Service ceases immediately.</p>
+
+        <h3>9. Limitation of Liability</h3>
+        <p>To the maximum extent permitted by applicable law, Growsle shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of profits, data, or goodwill — arising from your use of or inability to use the Service. Growsle's total liability for any claim shall not exceed the amount you paid us in the 12 months prior to the claim.</p>
+
+        <h3>10. Indemnification</h3>
+        <p>You agree to defend, indemnify, and hold harmless Growsle, its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses arising from your violation of these Terms or your use of the Service.</p>
+
+        <h3>11. Governing Law</h3>
+        <p>These Terms are governed by the laws of the State of Delaware, United States, without regard to conflict of law provisions. Disputes shall be resolved through binding arbitration as described in Section 12.</p>
+
+        <h3>12. Dispute Resolution & Arbitration</h3>
+        <p>Any dispute arising from these Terms shall first be attempted informally by contacting <strong>legal@growsle.com</strong>. If unresolved within 30 days, disputes shall be settled by binding arbitration under the American Arbitration Association rules.</p>
+        <div class="warning-box"><p><strong>Class Action Waiver:</strong> You agree that disputes will be resolved on an individual basis only — not as part of any class or representative action. You waive the right to a jury trial or class action lawsuit.</p></div>
+
+        <h3>13. Changes to Terms</h3>
+        <p>We may modify these Terms at any time. We will notify you of material changes via email or in-app notification at least 14 days before they take effect. Continued use after changes constitutes acceptance of the updated Terms.</p>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section class="legal-section" id="privacy">
+      <div class="section-header">
+        <div class="section-icon">🔒</div>
+        <div class="section-header-text"><h2>Privacy Policy</h2><p>What we collect, why we collect it, and how we use it</p></div>
+      </div>
+      <div class="section-body">
+        <div class="green-box"><p><strong>Our Promise:</strong> Growsle does not sell your personal data. Ever. We collect only what we need to deliver an exceptional experience to your family.</p></div>
+
+        <h3>1. Information We Collect</h3>
+        <table class="data-table">
+          <thead><tr><th>Data Type</th><th>What We Collect</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Account Data</strong></td><td>Name, email, hashed password</td><td>Account creation and management</td></tr>
+            <tr><td><strong>Child Profile Data</strong></td><td>Child's first name, date of birth, personality notes you enter</td><td>To personalise guidance</td></tr>
+            <tr><td><strong>Usage Data</strong></td><td>Features used, session duration, interactions</td><td>To improve the Service</td></tr>
+            <tr><td><strong>Device Data</strong></td><td>Device type, OS, browser, IP address</td><td>Security and analytics</td></tr>
+            <tr><td><strong>Payment Data</strong></td><td>Billing name, last 4 digits only (full card handled by Stripe)</td><td>To process subscriptions</td></tr>
+            <tr><td><strong>AI Conversations</strong></td><td>Questions asked and responses generated</td><td>To provide answers and improve AI quality</td></tr>
+          </tbody>
+        </table>
+
+        <h3>2. How We Use Your Information</h3>
+        <ul>
+          <li>To provide, maintain, and improve the Growsle Service</li>
+          <li>To personalise content based on your child's age and developmental stage</li>
+          <li>To send service-related communications (account, billing, important updates)</li>
+          <li>To send optional parenting insights and newsletters (opt out anytime)</li>
+          <li>To detect, prevent, and address fraud, abuse, and security issues</li>
+          <li>To comply with legal obligations</li>
+          <li>To improve our AI models using anonymised, aggregated data only</li>
+        </ul>
+
+        <h3>3. Data Sharing</h3>
+        <p>We do not sell, trade, or rent your personal information. We may share data only with: <strong>Service Providers</strong> (Stripe, AWS, SendGrid, OpenAI — all bound by strict data processing agreements); <strong>Legal Authorities</strong> when required by law; and in the event of a <strong>Business Transfer</strong>, where you will be notified and given the option to delete your data before any transfer.</p>
+
+        <h3>4. Data Retention</h3>
+        <p>We retain your data for as long as your account is active. You may request deletion at any time. Child profile data is permanently deleted within 30 days of account closure.</p>
+
+        <h3>5. Your Rights (GDPR & CCPA)</h3>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of all personal data we hold about you</li>
+          <li><strong>Correction:</strong> Request correction of inaccurate data</li>
+          <li><strong>Deletion:</strong> Request permanent deletion of your personal data</li>
+          <li><strong>Portability:</strong> Receive your data in a machine-readable format</li>
+          <li><strong>Objection:</strong> Object to certain types of processing including direct marketing</li>
+          <li><strong>Opt-out of Sale:</strong> California residents may opt out (note: we do not sell data)</li>
+        </ul>
+        <p>To exercise any of these rights, email <strong>privacy@growsle.com</strong>. We will respond within 30 days.</p>
+
+        <h3>6. International Data Transfers</h3>
+        <p>Growsle is operated from the United States. Data from EEA residents is transferred under Standard Contractual Clauses approved by the European Commission.</p>
+      </div>
+    </section>
+
+    <!-- CHILDREN -->
+    <section class="legal-section" id="children">
+      <div class="section-header">
+        <div class="section-icon">👶</div>
+        <div class="section-header-text"><h2>Children's Privacy (COPPA)</h2><p>Special protections for data relating to children</p></div>
+      </div>
+      <div class="section-body">
+        <div class="warning-box"><p><strong>Important:</strong> Growsle is a service for parents and guardians — not for children. Children under 13 must never create accounts or use the Service directly.</p></div>
+
+        <h3>COPPA Compliance</h3>
+        <p>Growsle complies fully with the Children's Online Privacy Protection Act (COPPA). We do not knowingly collect personal information directly from children under 13. Our Service is designed exclusively for use by parents and guardians.</p>
+
+        <h3>Child Profile Data</h3>
+        <p>When you enter information about your child, that data is:</p>
+        <ul>
+          <li>Stored securely and used only to personalise guidance for the parent or guardian</li>
+          <li>Never used for advertising, marketing, or profiling purposes</li>
+          <li>Never shared with third parties except as required to deliver the Service</li>
+          <li>Permanently deleted within 30 days when a parent requests account closure</li>
+        </ul>
+
+        <h3>Parental Control</h3>
+        <p>As the account holder and legal guardian, you have complete control over your child's data. Review, update, or delete any child profile at any time from account settings or by contacting <strong>privacy@growsle.com</strong>.</p>
+
+        <h3>Discovery of Underage Registration</h3>
+        <p>If we discover a child under 13 has created an account, we will immediately suspend the account, delete all associated data, and notify the registered email address. If you believe a child has registered without consent, contact us immediately.</p>
+      </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="legal-section" id="security">
+      <div class="section-header">
+        <div class="section-icon">🛡️</div>
+        <div class="section-header-text"><h2>Security Policy</h2><p>How we protect your family's data</p></div>
+      </div>
+      <div class="section-body">
+        <h3>Technical Safeguards</h3>
+        <ul>
+          <li><strong>Encryption in Transit:</strong> All data transmitted is encrypted using TLS 1.3</li>
+          <li><strong>Encryption at Rest:</strong> All stored personal data is encrypted using AES-256</li>
+          <li><strong>Password Security:</strong> Passwords are hashed using bcrypt — never stored in plain text</li>
+          <li><strong>Payment Security:</strong> All payments processed by Stripe (PCI DSS Level 1 certified). We never store full card numbers</li>
+          <li><strong>Access Controls:</strong> Employee access to user data is strictly limited, logged, and requires multi-factor authentication</li>
+          <li><strong>Infrastructure:</strong> Hosted on AWS with automatic backups, redundancy, and DDoS protection</li>
+          <li><strong>Regular Audits:</strong> Quarterly security reviews and annual penetration testing</li>
+        </ul>
+
+        <h3>Organisational Safeguards</h3>
+        <ul>
+          <li>All employees with data access undergo background checks and security training</li>
+          <li>We follow a principle of least privilege — staff only access data necessary for their role</li>
+          <li>All third-party vendors are vetted for security compliance before any data access is granted</li>
+        </ul>
+
+        <h3>Data Breach Response</h3>
+        <p>In the event of a data breach affecting your personal information, Growsle will:</p>
+        <ol>
+          <li>Notify affected users via email within 72 hours of becoming aware of the breach</li>
+          <li>Notify relevant regulatory authorities as required by applicable law (GDPR, CCPA)</li>
+          <li>Provide full details of what data was affected and steps being taken</li>
+          <li>Offer guidance on protective actions you can take immediately</li>
+        </ol>
+
+        <h3>Vulnerability Disclosure</h3>
+        <p>If you discover a security vulnerability, please report it responsibly to <strong>security@growsle.com</strong>. Do not publicly disclose until we have addressed it. We commit to acknowledging your report within 48 hours.</p>
+        <div class="info-box"><p><strong>Bug Bounty:</strong> We appreciate responsible disclosure and may offer recognition or compensation for significant security findings at our discretion.</p></div>
+      </div>
+    </section>
+
+    <!-- AI DISCLAIMER -->
+    <section class="legal-section" id="ai">
+      <div class="section-header">
+        <div class="section-icon">🤖</div>
+        <div class="section-header-text"><h2>AI & Technology Disclaimer</h2><p>Understanding how our AI works and its limitations</p></div>
+      </div>
+      <div class="section-body">
+        <div class="warning-box"><p><strong>Critical:</strong> Growsle's AI provides general parenting guidance only. It is not a substitute for professional advice from paediatricians, child psychologists, therapists, or other qualified professionals.</p></div>
+
+        <h3>How Our AI Works</h3>
+        <p>Growsle uses large language model (LLM) technology to generate personalised parenting guidance. Our AI is informed by general parenting research, child development literature, and expert resources, then personalised using information you provide about your child.</p>
+
+        <h3>AI Limitations — What You Must Know</h3>
+        <ul>
+          <li><strong>Not Always Accurate:</strong> AI can make mistakes, misunderstand context, or generate outdated information</li>
+          <li><strong>Not Personalised Medical Advice:</strong> The AI does not know your child's full medical history or individual health circumstances</li>
+          <li><strong>Knowledge Limits:</strong> The AI's training has cut-off dates and may not reflect the most current research</li>
+          <li><strong>Cultural Variance:</strong> Guidance reflects general developmental psychology and may not account for all cultural contexts</li>
+          <li><strong>Not a Crisis Resource:</strong> In any emergency, contact emergency services immediately. Do not rely on Growsle</li>
+        </ul>
+
+        <h3>No Liability for AI Errors</h3>
+        <p>Growsle expressly disclaims all liability for any harm, loss, or damage arising from reliance on AI-generated content. By using Growsle, you acknowledge the limitations of AI and agree to consult qualified professionals when appropriate.</p>
+      </div>
+    </section>
+
+    <!-- MEDICAL DISCLAIMER -->
+    <section class="legal-section" id="medical">
+      <div class="section-header">
+        <div class="section-icon">🏥</div>
+        <div class="section-header-text"><h2>Medical & Professional Disclaimer</h2><p>Critical information about the nature of Growsle's guidance</p></div>
+      </div>
+      <div class="section-body">
+        <div class="warning-box"><p><strong>Not Medical Advice.</strong> Nothing on Growsle constitutes medical, psychological, or professional advice of any kind. Always consult a qualified healthcare professional for your child's health and wellbeing.</p></div>
+
+        <h3>General Information Only</h3>
+        <p>All content provided through Growsle is for general informational and educational purposes only. It is not intended to replace, substitute for, or supplement professional medical advice, diagnosis, or treatment. Always seek the advice of your child's paediatrician or other qualified healthcare provider for any health-related concerns.</p>
+
+        <h3>Seek Professional Help Immediately For</h3>
+        <ul>
+          <li>Medical emergencies — call 911 (US) or your local emergency services immediately</li>
+          <li>Signs of serious developmental delay or regression</li>
+          <li>Any concern about your child's physical or mental health</li>
+          <li>Child abuse, neglect, or safeguarding concerns</li>
+          <li>Your own mental health crisis or postpartum depression</li>
+        </ul>
+
+        <h3>No Professional Relationship Created</h3>
+        <p>Use of Growsle does not create a doctor-patient, therapist-client, or any other professional relationship between you and Growsle. Growsle is a technology company, not a healthcare provider.</p>
+
+        <h3>Limitation of Liability for Health Decisions</h3>
+        <p>Growsle expressly disclaims all responsibility for any adverse outcomes resulting from parenting decisions made based on content provided through the Service. The risk of any action taken based on Growsle's content rests solely with you.</p>
+      </div>
+    </section>
+
+    <!-- COOKIES -->
+    <section class="legal-section" id="cookies">
+      <div class="section-header">
+        <div class="section-icon">🍪</div>
+        <div class="section-header-text"><h2>Cookie Policy</h2><p>What cookies we use and how to control them</p></div>
+      </div>
+      <div class="section-body">
+        <h3>What Are Cookies?</h3>
+        <p>Cookies are small text files stored on your device when you visit a website. They help us remember your preferences, keep you logged in, and understand how people use Growsle so we can improve it.</p>
+
+        <h3>Cookies We Use</h3>
+        <table class="data-table">
+          <thead><tr><th>Type</th><th>Purpose</th><th>Duration</th><th>Opt Out</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Essential</strong></td><td>Session management, security, preferences</td><td>Session / 30 days</td><td>No — required</td></tr>
+            <tr><td><strong>Analytics</strong></td><td>Anonymised usage patterns to improve the Service</td><td>Up to 2 years</td><td>Yes</td></tr>
+            <tr><td><strong>Performance</strong></td><td>Load times and error monitoring</td><td>Up to 1 year</td><td>Yes</td></tr>
+            <tr><td><strong>Marketing</strong></td><td>Campaign effectiveness measurement only</td><td>Up to 90 days</td><td>Yes</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Managing Cookies</h3>
+        <p>Control cookies through your browser settings or via our Cookie Preferences panel (accessible from the page footer). Disabling essential cookies will prevent login and core features from functioning.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="legal-section" id="contact">
+      <div class="section-header">
+        <div class="section-icon">✉️</div>
+        <div class="section-header-text"><h2>Contact & Dispute Resolution</h2><p>How to reach us and how we resolve disagreements</p></div>
+      </div>
+      <div class="section-body">
+        <h3>Contact Us</h3>
+        <div class="contact-grid">
+          <div class="contact-card"><div class="c-icon">⚖️</div><div class="c-label">Legal Matters</div><div class="c-val">legal@growsle.com</div></div>
+          <div class="contact-card"><div class="c-icon">🔒</div><div class="c-label">Privacy Requests</div><div class="c-val">privacy@growsle.com</div></div>
+          <div class="contact-card"><div class="c-icon">🛡️</div><div class="c-label">Security Issues</div><div class="c-val">security@growsle.com</div></div>
+          <div class="contact-card"><div class="c-icon">💬</div><div class="c-label">General Support</div><div class="c-val">hello@growsle.com</div></div>
+        </div>
+        <div class="divider"></div>
+
+        <h3>Informal Resolution First</h3>
+        <p>Before any formal proceedings, we encourage you to contact us at <strong>legal@growsle.com</strong>. The vast majority of concerns can be resolved quickly through direct communication. We commit to responding to all legal enquiries within 5 business days.</p>
+
+        <h3>Formal Dispute Process</h3>
+        <ol>
+          <li><strong>Contact:</strong> Email legal@growsle.com with full details. We respond within 5 business days.</li>
+          <li><strong>Mediation:</strong> If unresolved after 30 days, either party may request non-binding mediation.</li>
+          <li><strong>Arbitration:</strong> If mediation fails, binding arbitration under American Arbitration Association rules. Venue: Delaware, USA.</li>
+        </ol>
+
+        <h3>Regulatory Complaints</h3>
+        <p>EU residents may lodge a complaint with their local Data Protection Authority. UK residents may contact the Information Commissioner's Office (ICO).</p>
+
+        <div class="highlight-box"><p><strong>Our Commitment:</strong> We take every concern seriously. Our goal is always to resolve issues quickly, fairly, and in a way that maintains your complete trust in Growsle.</p></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- AGREEMENT BAR -->
+<div class="agreement-bar" id="agreement-bar">
+  <p>By using Growsle, you confirm you have read and agree to our <strong>Terms of Service</strong>, <strong>Privacy Policy</strong>, and all policies on this page. Last updated: April 5, 2026.</p>
+  <button class="agree-btn" onclick="dismissBar()">I Understand</button>
+</div>
+
+<footer>
+  <div class="footer-logo">Grow<span>sle</span></div>
+  <p>© 2026 Growsle. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#terms">Terms</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#security">Security</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const sections=document.querySelectorAll('.legal-section');
+const navLinks=document.querySelectorAll('.sidebar-nav a');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const id=entry.target.getAttribute('id');
+      const link=document.querySelector(`.sidebar-nav a[href="#${id}"]`);
+      if(link)link.classList.add('active');
+    }
+  });
+},{rootMargin:'-30% 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+function dismissBar(){
+  document.getElementById('agreement-bar').style.display='none';
+  localStorage.setItem('growsle-legal-agreed','1');
+}
+if(localStorage.getItem('growsle-legal-agreed')){
+  document.getElementById('agreement-bar').style.display='none';
+}
+</script>
+</body>
+</html>
