@@ -1171,22 +1171,15 @@ const obs=new IntersectionObserver((entries)=>{
 },{threshold:.07});
 reveals.forEach(el=>obs.observe(el));
 
-const SHEETS_URL='https://script.google.com/macros/s/AKfycbzoJ86DnMyIGzFmiOOUOdjkni7HF5yYcxZQVutHUgey7ULxH-UWbK4ihdL5ure3rCo/exec';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbyQOuTalcjvlU1KwnMLh1Dh2_YSd0FErysQzdFGWRf68FPlNTefmS2zB6w4nj627tfp/exec';
 
 async function sendToSheet(email, source){
-  try{
-    await fetch(SHEETS_URL,{
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email, source})
-    });
-  }catch(err){
-    console.log('Sheet sync note:',err);
-  }
-  // Always save locally as backup
   const emails=JSON.parse(localStorage.getItem('growsle-emails')||'[]');
   if(!emails.includes(email)){emails.push(email);localStorage.setItem('growsle-emails',JSON.stringify(emails));}
+  try{
+    const params=new URLSearchParams({email:email,source:source});
+    await fetch(SHEETS_URL+'?'+params.toString(),{method:'GET',mode:'no-cors'});
+  }catch(err){console.log('Sheet sync:',err);}
 }
 
 function handleSignup(src){
