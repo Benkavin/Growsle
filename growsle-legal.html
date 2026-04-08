@@ -91,12 +91,29 @@ a:hover{text-decoration:underline;}
 .data-table tr:last-child td{border-bottom:none;}
 .data-table tr:hover td{background:var(--card);}
 
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:20px;border:1px solid var(--border);}
-.contact-card{background:var(--card);padding:22px;text-align:center;transition:background .2s;}
-.contact-card:hover{background:var(--card2);}
-.c-icon{font-size:1.4rem;margin-bottom:10px;}
-.c-label{font-size:.58rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
-.c-val{font-size:.8rem;font-weight:300;color:var(--gold);letter-spacing:.3px;}
+.contact-form-wrap{margin-top:20px;border:1px solid var(--border);}
+.contact-email-display{padding:24px 28px;border-bottom:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ced-label{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+.ced-email{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--gold);letter-spacing:.5px;}
+.subject-selector{padding:0;}
+.ss-label{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);padding:20px 28px 12px;}
+.ss-options{display:flex;flex-direction:column;}
+.ss-option{display:flex;align-items:center;gap:14px;padding:14px 28px;background:transparent;border:none;border-bottom:1px solid var(--border);cursor:pointer;text-align:left;transition:background .2s;width:100%;}
+.ss-option:last-child{border-bottom:none;}
+.ss-option:hover{background:var(--card);}
+.ss-option.active{background:var(--gold-dim);border-left:2px solid var(--gold);}
+.ss-icon{font-size:.95rem;flex-shrink:0;width:20px;text-align:center;}
+.ss-text{font-size:.82rem;font-weight:300;letter-spacing:.3px;color:var(--text);flex:1;transition:color .2s;}
+.ss-option:hover .ss-text,.ss-option.active .ss-text{color:var(--white);}
+.ss-arrow{font-size:.75rem;color:var(--text-dim);transition:color .2s;opacity:0;}
+.ss-option:hover .ss-arrow,.ss-option.active .ss-arrow{opacity:1;color:var(--gold);}
+.ss-compose{margin:0;padding:20px 28px;background:var(--card2);border-top:1px solid var(--border);}
+.ss-compose-label{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;}
+.ss-compose-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ss-compose-to{font-size:.85rem;font-weight:300;color:var(--gold);margin-bottom:4px;}
+.ss-compose-subject{font-size:.75rem;font-weight:300;color:var(--text);letter-spacing:.3px;}
+.ss-open-btn{background:var(--gold);color:var(--black);padding:11px 24px;border:none;font-family:'Jost',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.ss-open-btn:hover{background:var(--gold-lt);}
 .divider{height:1px;background:var(--border);margin:24px 0;}
 
 /* AGREEMENT BAR */
@@ -177,7 +194,7 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
         </ul>
 
         <h3>4. Account Responsibilities</h3>
-        <p>You are responsible for maintaining the confidentiality of your account credentials and all activities that occur under your account. Notify us immediately at <strong>legal@growsle.com</strong> of any unauthorised use. Growsle cannot be liable for loss or damage arising from your failure to comply with this obligation.</p>
+        <p>You are responsible for maintaining the confidentiality of your account credentials and all activities that occur under your account. Notify us immediately at <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91fdf4f6f0fdd1f6e3fee6e2fdf4bff2fefc">[email&#160;protected]</a></strong> of any unauthorised use. Growsle cannot be liable for loss or damage arising from your failure to comply with this obligation.</p>
 
         <h3>5. Subscription, Billing & Cancellation</h3>
         <ul>
@@ -218,7 +235,7 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
         <p>These Terms are governed by the laws of the State of Delaware, United States, without regard to conflict of law provisions. Disputes shall be resolved through binding arbitration as described in Section 12.</p>
 
         <h3>12. Dispute Resolution & Arbitration</h3>
-        <p>Any dispute arising from these Terms shall first be attempted informally by contacting <strong>legal@growsle.com</strong>. If unresolved within 30 days, disputes shall be settled by binding arbitration under the American Arbitration Association rules.</p>
+        <p>Any dispute arising from these Terms shall first be attempted informally by contacting <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c00090b0d002c0b1e031b1f0009420f0301">[email&#160;protected]</a></strong>. If unresolved within 30 days, disputes shall be settled by binding arbitration under the American Arbitration Association rules.</p>
         <div class="warning-box"><p><strong>Class Action Waiver:</strong> You agree that disputes will be resolved on an individual basis only — not as part of any class or representative action. You waive the right to a jury trial or class action lawsuit.</p></div>
 
         <h3>13. Changes to Terms</h3>
@@ -274,7 +291,7 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
           <li><strong>Objection:</strong> Object to certain types of processing including direct marketing</li>
           <li><strong>Opt-out of Sale:</strong> California residents may opt out (note: we do not sell data)</li>
         </ul>
-        <p>To exercise any of these rights, email <strong>privacy@growsle.com</strong>. We will respond within 30 days.</p>
+        <p>To exercise any of these rights, email <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bececcd7c8dfddc7fed9ccd1c9cdd2db90ddd1d3">[email&#160;protected]</a></strong>. We will respond within 30 days.</p>
 
         <h3>6. International Data Transfers</h3>
         <p>Growsle is operated from the United States. Data from EEA residents is transferred under Standard Contractual Clauses approved by the European Commission.</p>
@@ -303,7 +320,7 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
         </ul>
 
         <h3>Parental Control</h3>
-        <p>As the account holder and legal guardian, you have complete control over your child's data. Review, update, or delete any child profile at any time from account settings or by contacting <strong>privacy@growsle.com</strong>.</p>
+        <p>As the account holder and legal guardian, you have complete control over your child's data. Review, update, or delete any child profile at any time from account settings or by contacting <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5727253e2136342e1730253820243b327934383a">[email&#160;protected]</a></strong>.</p>
 
         <h3>Discovery of Underage Registration</h3>
         <p>If we discover a child under 13 has created an account, we will immediately suspend the account, delete all associated data, and notify the registered email address. If you believe a child has registered without consent, contact us immediately.</p>
@@ -345,7 +362,7 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
         </ol>
 
         <h3>Vulnerability Disclosure</h3>
-        <p>If you discover a security vulnerability, please report it responsibly to <strong>security@growsle.com</strong>. Do not publicly disclose until we have addressed it. We commit to acknowledging your report within 48 hours.</p>
+        <p>If you discover a security vulnerability, please report it responsibly to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0271676177706b767b4265706d75716e672c616d6f">[email&#160;protected]</a></strong>. Do not publicly disclose until we have addressed it. We commit to acknowledging your report within 48 hours.</p>
         <div class="info-box"><p><strong>Bug Bounty:</strong> We appreciate responsible disclosure and may offer recognition or compensation for significant security findings at our discretion.</p></div>
       </div>
     </section>
@@ -439,20 +456,85 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
       </div>
       <div class="section-body">
         <h3>Contact Us</h3>
-        <div class="contact-grid">
-          <div class="contact-card"><div class="c-icon">⚖️</div><div class="c-label">Legal Matters</div><div class="c-val">legal@growsle.com</div></div>
-          <div class="contact-card"><div class="c-icon">🔒</div><div class="c-label">Privacy Requests</div><div class="c-val">privacy@growsle.com</div></div>
-          <div class="contact-card"><div class="c-icon">🛡️</div><div class="c-label">Security Issues</div><div class="c-val">security@growsle.com</div></div>
-          <div class="contact-card"><div class="c-icon">💬</div><div class="c-label">General Support</div><div class="c-val">hello@growsle.com</div></div>
+        <p>All enquiries are handled through a single address. Select the subject that best describes your reason for getting in touch and we will route your message to the right team immediately.</p>
+
+        <div class="contact-form-wrap">
+          <div class="contact-email-display">
+            <div class="ced-label">One address for everything</div>
+            <div class="ced-email">hello@growsle.com</div>
+          </div>
+
+          <div class="subject-selector">
+            <div class="ss-label">Select your subject</div>
+            <div class="ss-options" id="subject-options">
+              <button class="ss-option active" onclick="selectSubject(this,'General Enquiry','hello@growsle.com')">
+                <span class="ss-icon">💬</span>
+                <span class="ss-text">General Enquiry</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Legal Matter','hello@growsle.com')">
+                <span class="ss-icon">⚖️</span>
+                <span class="ss-text">Legal Matter</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Privacy Request (GDPR / CCPA)','hello@growsle.com')">
+                <span class="ss-icon">🔒</span>
+                <span class="ss-text">Privacy Request (GDPR / CCPA)</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Security Vulnerability Report','hello@growsle.com')">
+                <span class="ss-icon">🛡️</span>
+                <span class="ss-text">Security Vulnerability Report</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Data Deletion Request','hello@growsle.com')">
+                <span class="ss-icon">🗑️</span>
+                <span class="ss-text">Data Deletion Request</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Billing & Subscription','hello@growsle.com')">
+                <span class="ss-icon">💳</span>
+                <span class="ss-text">Billing & Subscription</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Partnership or Press Enquiry','hello@growsle.com')">
+                <span class="ss-icon">🤝</span>
+                <span class="ss-text">Partnership or Press Enquiry</span>
+                <span class="ss-arrow">→</span>
+              </button>
+              <button class="ss-option" onclick="selectSubject(this,'Child Safety Concern','hello@growsle.com')">
+                <span class="ss-icon">👶</span>
+                <span class="ss-text">Child Safety Concern</span>
+                <span class="ss-arrow">→</span>
+              </button>
+            </div>
+
+            <div class="ss-compose" id="ss-compose">
+              <div class="ss-compose-label">Composing email to</div>
+              <div class="ss-compose-row">
+                <div class="ss-compose-info">
+                  <div class="ss-compose-to" id="ss-to">hello@growsle.com</div>
+                  <div class="ss-compose-subject" id="ss-subject-display">Subject: General Enquiry</div>
+                </div>
+                <button class="ss-open-btn" id="ss-open-btn" onclick="openEmail()">Open in Mail →</button>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="divider"></div>
 
-        <h3>Informal Resolution First</h3>
-        <p>Before any formal proceedings, we encourage you to contact us at <strong>legal@growsle.com</strong>. The vast majority of concerns can be resolved quickly through direct communication. We commit to responding to all legal enquiries within 5 business days.</p>
+        <h3>Response Times</h3>
+        <ul>
+          <li><strong>General &amp; Billing:</strong> We aim to respond within 2 business days</li>
+          <li><strong>Legal &amp; Privacy:</strong> We respond within 5 business days as required by law</li>
+          <li><strong>Security Reports:</strong> We acknowledge within 48 hours and provide a resolution timeline within 7 days</li>
+          <li><strong>Data Deletion:</strong> Confirmed and completed within 30 days</li>
+        </ul>
 
         <h3>Formal Dispute Process</h3>
         <ol>
-          <li><strong>Contact:</strong> Email legal@growsle.com with full details. We respond within 5 business days.</li>
+          <li><strong>Contact:</strong> Email hello@growsle.com with subject "Legal Matter" and full details. We respond within 5 business days.</li>
           <li><strong>Mediation:</strong> If unresolved after 30 days, either party may request non-binding mediation.</li>
           <li><strong>Arbitration:</strong> If mediation fails, binding arbitration under American Arbitration Association rules. Venue: Delaware, USA.</li>
         </ol>
@@ -469,7 +551,7 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
 
 <!-- AGREEMENT BAR -->
 <div class="agreement-bar" id="agreement-bar">
-  <p>By using Growsle, you confirm you have read and agree to our <strong>Terms of Service</strong>, <strong>Privacy Policy</strong>, and all policies on this page. Last updated: April 5, 2026.</p>
+  <p>By using Growsle, you confirm you have read and agree to our <strong>Terms of   <p>By using Growsle, you confirm you have read and agreed to all policies on this page. Last updated: April 5, 2026.</p>
   <button class="agree-btn" onclick="dismissBar()">I Understand</button>
 </div>
 
@@ -485,6 +567,18 @@ footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-di
 </footer>
 
 <script>
+let currentSubject='General Enquiry';
+function selectSubject(btn,subject,email){
+  document.querySelectorAll('.ss-option').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentSubject=subject;
+  document.getElementById('ss-subject-display').textContent='Subject: '+subject;
+  document.getElementById('ss-to').textContent=email;
+}
+function openEmail(){
+  const mailto='mailto:hello@growsle.com?subject='+encodeURIComponent('[Growsle] '+currentSubject);
+  window.location.href=mailto;
+}
 const sections=document.querySelectorAll('.legal-section');
 const navLinks=document.querySelectorAll('.sidebar-nav a');
 const observer=new IntersectionObserver((entries)=>{
@@ -498,13 +592,13 @@ const observer=new IntersectionObserver((entries)=>{
   });
 },{rootMargin:'-30% 0px -60% 0px'});
 sections.forEach(s=>observer.observe(s));
-
 function dismissBar(){
   document.getElementById('agreement-bar').style.display='none';
   localStorage.setItem('growsle-legal-agreed','1');
 }
 if(localStorage.getItem('growsle-legal-agreed')){
-  document.getElementById('agreement-bar').style.display='none';
+  const bar=document.getElementById('agreement-bar');
+  if(bar)bar.style.display='none';
 }
 </script>
 </body>
