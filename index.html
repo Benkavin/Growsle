@@ -3,603 +3,1283 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Growsle — Legal & Privacy Centre</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<title>Growsle — The World's Most Intelligent Parenting Co-Pilot</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
 :root{
-  --black:#080808;--deep:#0F0F0F;--card:#141414;--card2:#1A1A1A;
-  --gold:#C9A84C;--gold-lt:#E2C97E;--gold-dim:rgba(201,168,76,0.1);
-  --gold-bdr:rgba(201,168,76,0.22);
-  --white:#FAFAF8;--text:#B8B0A0;--text-dim:rgba(184,176,160,0.45);
-  --border:rgba(201,168,76,0.13);
-  --green:#6B9E6B;--red:#A93226;--blue:#4A7FA5;
+  --black:#080808;
+  --deep:#0F0F0F;
+  --card:#141414;
+  --card2:#1A1A1A;
+  --gold:#C9A84C;
+  --gold-lt:#E2C97E;
+  --gold-dim:rgba(201,168,76,0.12);
+  --gold-bdr:rgba(201,168,76,0.25);
+  --white:#FAFAF8;
+  --off:#F5F0E8;
+  --cream:#EDE6D6;
+  --text:#B8B0A0;
+  --text-dim:rgba(184,176,160,0.5);
+  --border:rgba(201,168,76,0.15);
+  --green:#6B9E6B;
+  --red:#C0392B;
 }
+
 html{scroll-behavior:smooth;}
-body{font-family:'Jost',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
-body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:200;}
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--black);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:default;
+}
 
-/* NAV */
-nav{position:fixed;top:0;width:100%;z-index:100;padding:22px 64px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
-.logo{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);text-decoration:none;}
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:.6;
+}
+
+/* ── GOLD LINE TOP ── */
+body::after{
+  content:'';
+  position:fixed;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  z-index:200;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;width:100%;z-index:100;
+  padding:24px 64px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,8,8,0.85);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:600;letter-spacing:2px;
+  color:var(--white);text-transform:uppercase;
+}
 .logo span{color:var(--gold);}
-.nav-back{display:flex;align-items:center;gap:10px;font-size:.65rem;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .2s;}
-.nav-back:hover{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:40px;}
+.nav-links a{
+  font-size:.75rem;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--text);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{
+  font-size:.7rem!important;font-weight:400!important;letter-spacing:2px!important;
+  border:1px solid var(--gold-bdr)!important;
+  padding:10px 28px;color:var(--gold)!important;
+  transition:all .2s!important;
+}
+.nav-cta:hover{background:var(--gold)!important;color:var(--black)!important;}
 
-/* HERO */
-.legal-hero{padding:130px 64px 64px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
-.legal-hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 65%);border-radius:50%;pointer-events:none;}
-.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px;}
-.eyebrow-line{width:32px;height:1px;background:var(--gold);}
-.eyebrow-text{font-size:.6rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;letter-spacing:-1px;line-height:1.05;color:var(--white);margin-bottom:16px;}
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;align-items:stretch;
+  position:relative;overflow:hidden;
+}
+.hero-left{
+  padding:160px 64px 80px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--border);
+  position:relative;z-index:1;
+}
+.hero-right{
+  padding:160px 64px 80px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:1;
+}
+
+/* Ambient glows */
+.hero::before{
+  content:'';position:absolute;
+  top:-300px;left:-200px;
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:-200px;right:-100px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(107,158,107,.04) 0%,transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-bottom:36px;
+  animation:fadeUp .8s ease both;
+}
+.eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.eyebrow-text{
+  font-size:.65rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);
+}
+
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.2rem,5.5vw,5.5rem);
+  font-weight:300;line-height:1.0;
+  letter-spacing:-1px;
+  color:var(--white);
+  margin-bottom:32px;
+  animation:fadeUp .8s .1s ease both;
+}
 .hero-title em{font-style:italic;color:var(--gold);}
-.hero-sub{font-size:.88rem;font-weight:300;line-height:1.85;color:var(--text);max-width:560px;margin-bottom:28px;letter-spacing:.3px;}
-.hero-date{display:inline-flex;align-items:center;gap:12px;font-size:.62rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
-.hero-date::before{content:'';width:20px;height:1px;background:var(--border);}
+.hero-title .thin{font-weight:300;color:var(--text);}
 
-/* LAYOUT */
-.legal-layout{display:grid;grid-template-columns:260px 1fr;max-width:1200px;margin:0 auto;padding:56px 64px;gap:0;align-items:start;}
+.hero-sub{
+  font-size:.95rem;font-weight:300;line-height:1.9;
+  color:var(--text);max-width:440px;
+  margin-bottom:52px;letter-spacing:.3px;
+  animation:fadeUp .8s .2s ease both;
+}
 
-/* SIDEBAR */
-.sidebar{position:sticky;top:88px;padding-right:48px;border-right:1px solid var(--border);}
-.sidebar-label{font-size:.58rem;font-weight:300;letter-spacing:3.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:20px;}
-.sidebar-nav{list-style:none;}
-.sidebar-nav li{margin-bottom:2px;}
-.sidebar-nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;font-size:.75rem;font-weight:300;letter-spacing:.5px;color:var(--text);text-decoration:none;transition:all .2s;border-left:1px solid transparent;}
-.sidebar-nav a:hover{color:var(--gold);border-left-color:var(--gold);}
-.sidebar-nav a.active{color:var(--gold);border-left-color:var(--gold);}
-.sidebar-nav .nav-dot{width:4px;height:4px;border-radius:50%;background:var(--text-dim);flex-shrink:0;transition:background .2s;}
-.sidebar-nav a:hover .nav-dot,.sidebar-nav a.active .nav-dot{background:var(--gold);}
-.sidebar-warning{margin-top:32px;padding:18px;border:1px solid rgba(169,50,38,.25);background:rgba(169,50,38,.05);}
-.sidebar-warning p{font-size:.72rem;font-weight:300;line-height:1.6;color:var(--red);letter-spacing:.3px;}
+.hero-form{
+  display:flex;flex-direction:column;gap:12px;
+  animation:fadeUp .8s .3s ease both;
+  max-width:420px;
+}
+.form-row{display:flex;gap:10px;}
+.hero-form input{
+  flex:1;padding:16px 22px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(201,168,76,.2);
+  font-family:'Jost',sans-serif;font-size:.85rem;font-weight:300;
+  letter-spacing:.5px;color:var(--white);outline:none;
+  transition:border-color .2s;
+}
+.hero-form input:focus{border-color:var(--gold);}
+.hero-form input::placeholder{color:var(--text-dim);}
+.btn-gold{
+  background:var(--gold);color:var(--black);
+  padding:16px 36px;border:none;cursor:pointer;
+  font-family:'Jost',sans-serif;font-size:.7rem;
+  font-weight:500;letter-spacing:3px;text-transform:uppercase;
+  transition:all .25s;white-space:nowrap;
+}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);}
+.hero-note{
+  font-size:.7rem;font-weight:300;letter-spacing:1px;
+  color:var(--text-dim);
+}
+.hero-note strong{color:var(--green);font-weight:400;}
 
-/* CONTENT */
-.legal-content{padding-left:64px;}
-.legal-section{margin-bottom:4px;scroll-margin-top:100px;border:1px solid var(--border);margin-bottom:16px;}
-.section-header{display:flex;align-items:flex-start;gap:18px;padding:32px;border-bottom:1px solid var(--border);}
-.section-icon{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;background:var(--card);}
-.section-header-text h2{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--white);letter-spacing:.3px;margin-bottom:3px;}
-.section-header-text p{font-size:.72rem;font-weight:300;letter-spacing:.5px;color:var(--text-dim);}
-.section-body{padding:32px;}
+.success-msg{
+  display:none;align-items:center;gap:12px;
+  border:1px solid rgba(107,158,107,.3);
+  padding:14px 20px;
+  color:var(--green);font-size:.8rem;
+  font-weight:300;letter-spacing:1px;
+}
+.success-msg.show{display:flex;}
 
-h3{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--gold);letter-spacing:.5px;margin:28px 0 12px;text-transform:uppercase;font-size:.72rem;}
-h3:first-child{margin-top:0;}
-p{font-size:.84rem;font-weight:300;line-height:1.9;color:var(--text);margin-bottom:14px;letter-spacing:.3px;}
-p:last-child{margin-bottom:0;}
-ul,ol{padding-left:0;list-style:none;margin-bottom:14px;}
-ul li,ol li{font-size:.82rem;font-weight:300;color:var(--text);line-height:1.8;padding:7px 0 7px 20px;position:relative;border-bottom:1px solid rgba(201,168,76,.06);letter-spacing:.2px;}
-ul li::before{content:'';position:absolute;left:0;top:16px;width:4px;height:4px;border-radius:50%;background:var(--gold);}
-ol{counter-reset:item;}
-ol li::before{content:counter(item)".";counter-increment:item;position:absolute;left:0;top:7px;color:var(--gold);font-size:.72rem;font-weight:400;letter-spacing:1px;}
-strong{font-weight:500;color:var(--white);}
-a{color:var(--gold);text-decoration:none;}
-a:hover{text-decoration:underline;}
+/* ── APP PREVIEW ── */
+.app-preview{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:32px;
+  max-width:360px;
+  margin-left:auto;
+  position:relative;
+  animation:fadeUp .9s .2s ease both;
+}
+.app-preview::before{
+  content:'';position:absolute;
+  top:-1px;left:40px;right:40px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.preview-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:24px;padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+.preview-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);
+}
+.preview-time{font-size:.7rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);}
 
-.highlight-box{background:var(--gold-dim);border:1px solid var(--gold-bdr);padding:18px 20px;margin:18px 0;}
-.highlight-box p{color:var(--white);font-weight:300;margin:0;font-size:.82rem;}
-.warning-box{background:rgba(169,50,38,.07);border:1px solid rgba(169,50,38,.2);padding:18px 20px;margin:18px 0;}
-.warning-box p{color:var(--red);font-weight:300;margin:0;font-size:.82rem;}
-.info-box{background:rgba(74,127,165,.07);border:1px solid rgba(74,127,165,.2);padding:18px 20px;margin:18px 0;}
-.info-box p{color:var(--blue);font-weight:300;margin:0;font-size:.82rem;}
-.green-box{background:rgba(107,158,107,.07);border:1px solid rgba(107,158,107,.2);padding:18px 20px;margin:18px 0;}
-.green-box p{color:var(--green);font-weight:300;margin:0;font-size:.82rem;}
+.preview-card{
+  background:var(--card2);
+  border:1px solid var(--border);
+  padding:20px;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.preview-card::before{
+  content:'';position:absolute;
+  top:0;left:0;width:2px;height:100%;
+  background:var(--gold);
+}
+.card-tag{
+  font-size:.6rem;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:8px;
+}
+.card-child{
+  font-size:.75rem;font-weight:300;letter-spacing:.5px;
+  color:var(--text);margin-bottom:10px;
+}
+.card-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:300;
+  line-height:1.6;color:var(--white);
+  font-style:italic;
+}
 
-.data-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.8rem;}
-.data-table th{background:var(--card);padding:10px 14px;text-align:left;font-weight:400;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--border);}
-.data-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);font-weight:300;line-height:1.5;}
-.data-table tr:last-child td{border-bottom:none;}
-.data-table tr:hover td{background:var(--card);}
+.preview-mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.mini-stat{
+  background:var(--card2);border:1px solid var(--border);
+  padding:14px;
+}
+.mini-label{font-size:.6rem;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
+.mini-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--white);}
 
-.contact-form-wrap{margin-top:20px;border:1px solid var(--border);}
-.contact-email-display{padding:24px 28px;border-bottom:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.ced-label{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
-.ced-email{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--gold);letter-spacing:.5px;}
-.subject-selector{padding:0;}
-.ss-label{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);padding:20px 28px 12px;}
-.ss-options{display:flex;flex-direction:column;}
-.ss-option{display:flex;align-items:center;gap:14px;padding:14px 28px;background:transparent;border:none;border-bottom:1px solid var(--border);cursor:pointer;text-align:left;transition:background .2s;width:100%;}
-.ss-option:last-child{border-bottom:none;}
-.ss-option:hover{background:var(--card);}
-.ss-option.active{background:var(--gold-dim);border-left:2px solid var(--gold);}
-.ss-icon{font-size:.95rem;flex-shrink:0;width:20px;text-align:center;}
-.ss-text{font-size:.82rem;font-weight:300;letter-spacing:.3px;color:var(--text);flex:1;transition:color .2s;}
-.ss-option:hover .ss-text,.ss-option.active .ss-text{color:var(--white);}
-.ss-arrow{font-size:.75rem;color:var(--text-dim);transition:color .2s;opacity:0;}
-.ss-option:hover .ss-arrow,.ss-option.active .ss-arrow{opacity:1;color:var(--gold);}
-.ss-compose{margin:0;padding:20px 28px;background:var(--card2);border-top:1px solid var(--border);}
-.ss-compose-label{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;}
-.ss-compose-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-.ss-compose-to{font-size:.85rem;font-weight:300;color:var(--gold);margin-bottom:4px;}
-.ss-compose-subject{font-size:.75rem;font-weight:300;color:var(--text);letter-spacing:.3px;}
-.ss-open-btn{background:var(--gold);color:var(--black);padding:11px 24px;border:none;font-family:'Jost',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.ss-open-btn:hover{background:var(--gold-lt);}
-.divider{height:1px;background:var(--border);margin:24px 0;}
+.preview-qa{
+  background:var(--card2);border:1px solid var(--border);
+  padding:16px;
+}
+.qa-q{font-size:.72rem;font-weight:300;letter-spacing:.5px;color:var(--gold);margin-bottom:8px;}
+.qa-a{font-size:.78rem;font-weight:300;line-height:1.65;color:var(--text);}
 
-/* AGREEMENT BAR */
-.agreement-bar{background:var(--deep);border-top:1px solid var(--border);padding:20px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:sticky;bottom:0;z-index:50;}
-.agreement-bar::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.agreement-bar p{font-size:.72rem;font-weight:300;color:var(--text);max-width:600px;letter-spacing:.3px;}
-.agreement-bar p strong{color:var(--gold);font-weight:400;}
-.agree-btn{background:var(--gold);color:var(--black);padding:11px 32px;border:none;font-family:'Jost',sans-serif;font-size:.62rem;font-weight:500;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.agree-btn:hover{background:var(--gold-lt);}
+.float-tag{
+  position:absolute;
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:10px 18px;
+  font-size:.65rem;font-weight:300;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);
+  white-space:nowrap;
+}
+.float-tag.tr{top:-18px;right:-20px;}
+.float-tag.bl{bottom:30px;left:-30px;color:var(--text);}
 
-/* FOOTER */
-footer{background:var(--deep);border-top:1px solid var(--border);padding:40px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px;}
-.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);}
+/* ── DIVIDER ── */
+.divider{
+  height:1px;margin:0;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+}
+
+/* ── STATS STRIP ── */
+.stats{
+  padding:40px 64px;
+  display:flex;align-items:center;justify-content:center;
+  gap:80px;flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+}
+.stat-item{text-align:center;}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:300;color:var(--gold);
+  letter-spacing:-1px;line-height:1;
+}
+.stat-label{font-size:.62rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text);margin-top:6px;}
+.stat-div{width:1px;height:50px;background:var(--border);}
+
+/* ── SECTIONS ── */
+.section{padding:120px 64px;position:relative;z-index:1;}
+.section-alt{background:var(--deep);}
+
+.s-eyebrow{
+  display:flex;align-items:center;gap:16px;margin-bottom:20px;
+}
+.s-eyebrow-line{width:32px;height:1px;background:var(--gold);}
+.s-eyebrow-text{font-size:.62rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+
+.s-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,4vw,4rem);
+  font-weight:300;letter-spacing:-1px;line-height:1.05;
+  color:var(--white);margin-bottom:20px;
+}
+.s-title em{font-style:italic;color:var(--gold);}
+.s-sub{
+  font-size:.9rem;font-weight:300;line-height:1.85;
+  color:var(--text);max-width:500px;letter-spacing:.3px;
+}
+
+/* ── FEATURES ── */
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--border);
+  margin-top:72px;border:1px solid var(--border);
+}
+.feat{
+  background:var(--black);
+  padding:40px 36px;
+  transition:background .25s;
+  position:relative;overflow:hidden;
+}
+.feat::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity .25s;
+}
+.feat:hover{background:var(--card);}
+.feat:hover::before{opacity:1;}
+.feat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3rem;font-weight:300;color:var(--border);
+  line-height:1;margin-bottom:24px;
+  transition:color .25s;
+}
+.feat:hover .feat-num{color:var(--gold-bdr);}
+.feat-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;font-weight:400;color:var(--white);
+  margin-bottom:12px;letter-spacing:.3px;
+}
+.feat-desc{font-size:.82rem;font-weight:300;line-height:1.8;color:var(--text);}
+
+/* ── PHILOSOPHY SECTION ── */
+.philosophy{
+  padding:120px 64px;
+  display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;
+}
+.phil-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:300;font-style:italic;
+  line-height:1.3;color:var(--white);
+  border-left:1px solid var(--gold);
+  padding-left:40px;
+}
+.phil-quote em{color:var(--gold);font-style:normal;}
+.phil-right{display:flex;flex-direction:column;gap:32px;}
+.phil-point{}
+.phil-point-title{
+  font-size:.7rem;font-weight:400;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:10px;
+}
+.phil-point-text{font-size:.88rem;font-weight:300;line-height:1.85;color:var(--text);}
+
+/* ── HOW IT WORKS ── */
+.steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;margin-top:72px;
+  border:1px solid var(--border);
+}
+.step{
+  padding:40px 32px;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.step:last-child{border-right:none;}
+.step-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.8rem;font-weight:400;letter-spacing:3px;
+  color:var(--gold);margin-bottom:24px;
+}
+.step-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem;font-weight:400;color:var(--white);
+  margin-bottom:12px;
+}
+.step-text{font-size:.8rem;font-weight:300;line-height:1.8;color:var(--text);}
+
+/* ── PRICING ── */
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  margin-top:72px;border:1px solid var(--border);
+}
+.price{
+  background:var(--black);
+  padding:48px 36px;
+  position:relative;
+}
+.price.featured{background:var(--card);}
+.price-top{
+  position:absolute;top:-1px;left:0;right:0;height:1px;
+  background:var(--gold);
+  display:none;
+}
+.price.featured .price-top{display:block;}
+.price-badge{
+  font-size:.6rem;font-weight:400;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:20px;
+}
+.price-plan{
+  font-size:.65rem;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text);
+  margin-bottom:12px;
+}
+.price-amount{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;font-weight:300;color:var(--white);
+  line-height:1;
+}
+.price-period{font-size:.72rem;font-weight:300;letter-spacing:1px;color:var(--text);margin-bottom:32px;}
+.price-list{list-style:none;margin-bottom:36px;}
+.price-list li{
+  font-size:.8rem;font-weight:300;padding:10px 0;
+  border-bottom:1px solid var(--border);
+  color:var(--text);display:flex;align-items:center;gap:12px;
+  letter-spacing:.3px;
+}
+.price-list li::before{
+  content:'';width:4px;height:4px;
+  border-radius:50%;background:var(--gold);flex-shrink:0;
+}
+.btn-outline{
+  width:100%;padding:14px;
+  background:transparent;
+  border:1px solid var(--border);
+  font-family:'Jost',sans-serif;
+  font-size:.65rem;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text);
+  cursor:pointer;transition:all .2s;
+}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-gold-full{
+  width:100%;padding:14px;background:var(--gold);
+  border:none;font-family:'Jost',sans-serif;
+  font-size:.65rem;font-weight:500;letter-spacing:3px;
+  text-transform:uppercase;color:var(--black);
+  cursor:pointer;transition:all .2s;
+}
+.btn-gold-full:hover{background:var(--gold-lt);}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:24px;margin-top:72px;
+}
+.testi{
+  background:var(--card);border:1px solid var(--border);
+  padding:36px;position:relative;overflow:hidden;
+}
+.testi::before{
+  content:'\201C';
+  position:absolute;top:-10px;right:20px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:8rem;font-weight:300;
+  color:var(--gold-bdr);line-height:1;
+}
+.testi-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-weight:300;font-style:italic;
+  line-height:1.7;color:var(--white);
+  margin-bottom:24px;position:relative;z-index:1;
+}
+.testi-author{display:flex;align-items:center;gap:14px;}
+.testi-avi{
+  width:38px;height:38px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;background:var(--card2);
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;color:var(--gold);
+}
+.testi-name{font-size:.78rem;font-weight:400;color:var(--white);letter-spacing:.5px;}
+.testi-role{font-size:.68rem;font-weight:300;letter-spacing:1px;color:var(--text);}
+
+/* ── REVIEWS SECTION ── */
+.reviews-section{padding:120px 64px;background:var(--deep);border-top:1px solid var(--border);}
+.reviews-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  flex-wrap:wrap;gap:32px;margin-bottom:56px;
+}
+.leave-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  border:1px solid var(--border);padding:14px 32px;
+  font-size:.65rem;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold);
+  background:transparent;cursor:pointer;
+  transition:all .2s;
+}
+.leave-btn:hover{background:var(--gold-dim);border-color:var(--gold);}
+
+/* MODAL */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(8,8,8,.85);z-index:300;
+  align-items:center;justify-content:center;
+  padding:24px;backdrop-filter:blur(12px);
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--deep);
+  border:1px solid var(--border);
+  padding:48px;max-width:540px;width:100%;
+  position:relative;
+  animation:modalIn .3s ease;
+}
+.modal::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.modal-close{
+  position:absolute;top:20px;right:20px;
+  background:transparent;border:none;
+  font-size:.8rem;color:var(--text);cursor:pointer;
+  letter-spacing:1px;
+  transition:color .2s;
+}
+.modal-close:hover{color:var(--gold);}
+.modal-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:300;color:var(--white);
+  margin-bottom:6px;
+}
+.modal-sub{font-size:.78rem;font-weight:300;color:var(--text);margin-bottom:32px;letter-spacing:.3px;}
+
+.form-group{margin-bottom:18px;}
+.form-group label{
+  display:block;font-size:.62rem;font-weight:300;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--text);margin-bottom:8px;
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(201,168,76,.15);
+  font-family:'Jost',sans-serif;font-size:.85rem;
+  font-weight:300;color:var(--white);outline:none;
+  transition:border-color .2s;resize:vertical;
+  letter-spacing:.3px;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
+.form-group textarea{min-height:90px;}
+.form-group select option{background:var(--deep);color:var(--white);}
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.star-row{display:flex;gap:6px;flex-direction:row-reverse;justify-content:flex-end;}
+.star-row input{display:none;}
+.star-row label{
+  font-size:1.6rem;cursor:pointer;color:var(--border);
+  transition:color .15s;line-height:1;
+}
+.star-row label:hover,.star-row label:hover~label,.star-row input:checked~label{color:var(--gold);}
+
+.submit-btn{
+  width:100%;padding:16px;background:var(--gold);
+  border:none;font-family:'Jost',sans-serif;
+  font-size:.65rem;font-weight:500;letter-spacing:3px;
+  text-transform:uppercase;color:var(--black);
+  cursor:pointer;transition:all .2s;margin-top:8px;
+}
+.submit-btn:hover{background:var(--gold-lt);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+.modal-note{font-size:.65rem;font-weight:300;color:var(--text-dim);margin-top:10px;text-align:center;letter-spacing:.5px;}
+.modal-note a{color:var(--gold);text-decoration:none;}
+
+/* REVIEW CARDS */
+.reviews-summary{
+  display:flex;align-items:center;gap:24px;
+  border:1px solid var(--border);padding:20px 28px;
+  margin-bottom:40px;background:var(--card);
+  display:none;
+}
+.summary-score{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;font-weight:300;color:var(--gold);line-height:1;
+}
+.summary-stars{color:var(--gold);font-size:1.1rem;margin-bottom:4px;}
+.summary-count{font-size:.7rem;font-weight:300;letter-spacing:1px;color:var(--text);}
+
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1px;background:var(--border);
+}
+.review-card{
+  background:var(--black);padding:32px;
+  transition:background .2s;
+  animation:fadeUp .5s ease both;
+}
+.review-card:hover{background:var(--card);}
+.review-stars{color:var(--gold);font-size:.9rem;letter-spacing:2px;margin-bottom:14px;}
+.review-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:300;font-style:italic;
+  line-height:1.7;color:var(--white);margin-bottom:20px;
+}
+.review-author{display:flex;align-items:center;gap:12px;}
+.review-avi{
+  width:36px;height:36px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:.9rem;
+  color:var(--gold);background:var(--card2);
+}
+.review-name{font-size:.8rem;font-weight:400;color:var(--white);letter-spacing:.5px;}
+.review-meta{font-size:.68rem;font-weight:300;letter-spacing:1px;color:var(--text);}
+.review-date{
+  font-size:.65rem;font-weight:300;letter-spacing:1px;
+  color:var(--text-dim);margin-top:14px;
+  padding-top:12px;border-top:1px solid var(--border);
+}
+
+/* ── CTA ── */
+.cta-section{
+  padding:140px 64px;text-align:center;
+  position:relative;overflow:hidden;
+  border-top:1px solid var(--border);
+}
+.cta-section::before{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 65%);
+  border-radius:50%;pointer-events:none;
+}
+.cta-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:300;letter-spacing:-1px;line-height:1.05;
+  color:var(--white);margin-bottom:20px;
+}
+.cta-title em{font-style:italic;color:var(--gold);}
+.cta-sub{
+  font-size:.9rem;font-weight:300;line-height:1.85;
+  color:var(--text);max-width:480px;
+  margin:0 auto 56px;letter-spacing:.3px;
+}
+.cta-form{
+  display:flex;gap:0;justify-content:center;
+  flex-wrap:wrap;max-width:520px;margin:0 auto;
+}
+.cta-form input{
+  flex:1;min-width:260px;padding:18px 24px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(201,168,76,.2);border-right:none;
+  font-family:'Jost',sans-serif;font-size:.85rem;
+  font-weight:300;color:var(--white);outline:none;
+  transition:border-color .2s;letter-spacing:.3px;
+}
+.cta-form input:focus{border-color:var(--gold);}
+.cta-form input::placeholder{color:var(--text-dim);}
+.cta-note{
+  margin-top:20px;font-size:.65rem;
+  font-weight:300;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text-dim);
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--deep);
+  border-top:1px solid var(--border);
+  padding:64px;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:64px;margin-bottom:56px;
+  padding-bottom:56px;
+  border-bottom:1px solid var(--border);
+}
+.footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;color:var(--white);
+  margin-bottom:16px;
+}
 .footer-logo span{color:var(--gold);}
-footer p{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);}
-.footer-links{display:flex;gap:22px;}
-.footer-links a{font-size:.65rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);text-decoration:none;transition:color .2s;}
-.footer-links a:hover{color:var(--gold);}
+.footer-desc{font-size:.78rem;font-weight:300;line-height:1.8;color:var(--text);max-width:240px;}
+.footer-col h4{
+  font-size:.6rem;font-weight:300;letter-spacing:3.5px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:20px;
+}
+.footer-col a{
+  display:block;font-size:.78rem;font-weight:300;
+  letter-spacing:.5px;color:var(--text);
+  text-decoration:none;margin-bottom:12px;
+  transition:color .2s;
+}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-bottom p{font-size:.65rem;font-weight:300;letter-spacing:1.5px;color:var(--text-dim);}
+.footer-legal{display:flex;gap:24px;}
+.footer-legal a{font-size:.65rem;font-weight:300;letter-spacing:1.5px;color:var(--text-dim);text-decoration:none;transition:color .2s;}
+.footer-legal a:hover{color:var(--gold);}
 
-@media(max-width:900px){.legal-layout{grid-template-columns:1fr;padding:32px 24px;}.sidebar{position:static;padding-right:0;border-right:none;border-bottom:1px solid var(--border);padding-bottom:32px;margin-bottom:32px;}.legal-content{padding-left:0;}.legal-hero{padding:110px 24px 48px;}.agreement-bar{padding:16px 24px;}footer{padding:28px 24px;flex-direction:column;align-items:flex-start;}.contact-grid{grid-template-columns:1fr;}}
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .philosophy{grid-template-columns:1fr;gap:48px;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .step:nth-child(2){border-right:none;}
+  .step:nth-child(3){border-top:1px solid var(--border);}
+  .pricing-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px;}
+}
+@media(max-width:768px){
+  nav{padding:20px 24px;}
+  .nav-links a:not(.nav-cta){display:none;}
+  .hero-left{padding:120px 24px 60px;}
+  .section{padding:80px 24px;}
+  .philosophy{padding:80px 24px;}
+  .stats{padding:32px 24px;gap:40px;}
+  .stat-div{display:none;}
+  .steps{grid-template-columns:1fr;border:1px solid var(--border);}
+  .step{border-right:none;border-bottom:1px solid var(--border);}
+  .step:last-child{border-bottom:none;}
+  .reviews-section{padding:80px 24px;}
+  .cta-section{padding:100px 24px;}
+  footer{padding:40px 24px;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .form-row-2{grid-template-columns:1fr;}
+  .modal{padding:32px 24px;}
+  .cta-form input{border-right:1px solid rgba(201,168,76,.2);}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a href="growsle-landing.html" class="logo">Grow<span>sle</span></a>
-  <a href="growsle-landing.html" class="nav-back">← Back to Growsle</a>
+  <div class="logo">Grow<span>sle</span></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#access" class="nav-cta">Request Access</a>
+  </div>
 </nav>
 
-<div class="legal-hero">
-  <div class="hero-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Legal & Privacy Centre</div></div>
-  <h1 class="hero-title">Transparency you can<br/><em>trust completely.</em></h1>
-  <p class="hero-sub">We believe every family deserves to know exactly how Growsle works, what data we collect, and how we protect what matters most — your children. This is our full commitment to you.</p>
-  <div class="hero-date">Last updated: April 5, 2026</div>
-</div>
-
-<div class="legal-layout">
-  <aside class="sidebar">
-    <div class="sidebar-label">Contents</div>
-    <ul class="sidebar-nav">
-      <li><a href="#terms" class="active"><span class="nav-dot"></span>Terms of Service</a></li>
-      <li><a href="#privacy"><span class="nav-dot"></span>Privacy Policy</a></li>
-      <li><a href="#children"><span class="nav-dot"></span>Children's Privacy</a></li>
-      <li><a href="#security"><span class="nav-dot"></span>Security Policy</a></li>
-      <li><a href="#ai"><span class="nav-dot"></span>AI Disclaimer</a></li>
-      <li><a href="#medical"><span class="nav-dot"></span>Medical Disclaimer</a></li>
-      <li><a href="#cookies"><span class="nav-dot"></span>Cookie Policy</a></li>
-      <li><a href="#contact"><span class="nav-dot"></span>Contact & Disputes</a></li>
-    </ul>
-    <div class="sidebar-warning">
-      <p><strong>Not medical advice.</strong> Growsle's AI provides general parenting guidance only — never a substitute for professional medical, psychological, or legal advice.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Exclusively for discerning parents</div>
     </div>
-  </aside>
-
-  <main class="legal-content">
-
-    <!-- TERMS -->
-    <section class="legal-section" id="terms">
-      <div class="section-header">
-        <div class="section-icon">📋</div>
-        <div class="section-header-text"><h2>Terms of Service</h2><p>Your agreement with Growsle when using our platform</p></div>
+    <h1 class="hero-title">
+      Your child deserves<br/>
+      more than <em>good</em><br/>
+      <span class="thin">parenting.</span>
+    </h1>
+    <p class="hero-sub">
+      Growsle is the world's most intelligent AI parenting co-pilot. Personalised daily guidance, age-exact milestones, and expert-level insight — delivered with the precision and care your family deserves.
+    </p>
+    <div class="hero-form" id="hero-form">
+      <div class="form-row">
+        <input type="email" id="hero-email" placeholder="Your email address"/>
+        <button class="btn-gold" onclick="handleSignup('hero')">Request Access</button>
       </div>
-      <div class="section-body">
-        <h3>1. Acceptance of Terms</h3>
-        <p>By accessing or using Growsle ("the Service," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Service. These Terms apply to all visitors, users, and others who access or use Growsle.</p>
-        <div class="highlight-box"><p><strong>Plain English:</strong> By signing up or using Growsle in any way, you agree to these rules. They protect both you and us — please read them carefully.</p></div>
+      <p class="hero-note">By invitation &amp; early access only. <strong>260+ families</strong> already enrolled.</p>
+    </div>
+    <div class="success-msg" id="hero-success">
+      — You are on the list. We will be in touch shortly.
+    </div>
+  </div>
 
-        <h3>2. Description of Service</h3>
-        <p>Growsle is an AI-powered parenting guidance platform providing personalised daily tips, milestone tracking, bedtime story generation, and parenting Q&A based on your child's age and developmental stage. The Service is offered on a subscription basis with a free tier and paid membership plans.</p>
-
-        <h3>3. Eligibility</h3>
-        <ul>
-          <li>You must be at least 18 years of age to create an account and use Growsle</li>
-          <li>You must be a legal guardian or parent of any child whose information you enter</li>
-          <li>You must provide accurate, truthful registration information at all times</li>
-          <li>One account per person — creating multiple accounts to circumvent plan limits is prohibited</li>
-          <li>Growsle is available globally but complies with local laws; availability may be restricted in certain regions</li>
-        </ul>
-
-        <h3>4. Account Responsibilities</h3>
-        <p>You are responsible for maintaining the confidentiality of your account credentials and all activities that occur under your account. Notify us immediately at <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91fdf4f6f0fdd1f6e3fee6e2fdf4bff2fefc">[email&#160;protected]</a></strong> of any unauthorised use. Growsle cannot be liable for loss or damage arising from your failure to comply with this obligation.</p>
-
-        <h3>5. Subscription, Billing & Cancellation</h3>
-        <ul>
-          <li><strong>Free Plan:</strong> Access to limited features at no cost, no credit card required</li>
-          <li><strong>Paid Plans:</strong> Billed monthly or annually as selected at checkout via Stripe</li>
-          <li><strong>Cancellation:</strong> Cancel anytime. Access continues until the end of your billing period. No partial refunds for mid-period cancellations</li>
-          <li><strong>Refunds:</strong> We offer a 7-day money-back guarantee for first-time subscribers who are unsatisfied</li>
-          <li><strong>Price Changes:</strong> We will provide 30 days' written notice before any price increase takes effect</li>
-          <li><strong>Failed Payments:</strong> Accounts are downgraded to the free tier after a 7-day grace period following a failed payment</li>
-        </ul>
-
-        <h3>6. Acceptable Use</h3>
-        <p>You agree NOT to use Growsle to:</p>
-        <ul>
-          <li>Share, sell, or distribute your account access to others</li>
-          <li>Reverse engineer, copy, or reproduce any part of the Service</li>
-          <li>Submit false, misleading, or fraudulent information</li>
-          <li>Scrape, harvest, or extract data from the platform by automated means</li>
-          <li>Use the Service for commercial purposes without prior written permission</li>
-          <li>Impersonate any person, entity, or Growsle staff member</li>
-          <li>Transmit harmful, abusive, or unlawful content through the Service</li>
-          <li>Interfere with or disrupt the integrity or performance of the Service</li>
-        </ul>
-
-        <h3>7. Intellectual Property</h3>
-        <p>All content, features, and functionality of Growsle — including text, graphics, logos, AI models, and software — are the exclusive property of Growsle and are protected by copyright, trademark, and other intellectual property laws. You are granted a limited, non-exclusive, non-transferable licence to use the Service for personal, non-commercial purposes only.</p>
-
-        <h3>8. Termination</h3>
-        <p>Growsle reserves the right to suspend or terminate your account at any time, with or without notice, if you violate these Terms or engage in conduct harmful to the platform, other users, or the public. Upon termination, your right to access the Service ceases immediately.</p>
-
-        <h3>9. Limitation of Liability</h3>
-        <p>To the maximum extent permitted by applicable law, Growsle shall not be liable for any indirect, incidental, special, consequential, or punitive damages — including loss of profits, data, or goodwill — arising from your use of or inability to use the Service. Growsle's total liability for any claim shall not exceed the amount you paid us in the 12 months prior to the claim.</p>
-
-        <h3>10. Indemnification</h3>
-        <p>You agree to defend, indemnify, and hold harmless Growsle, its officers, directors, employees, and agents from and against any claims, liabilities, damages, losses, and expenses arising from your violation of these Terms or your use of the Service.</p>
-
-        <h3>11. Governing Law</h3>
-        <p>These Terms are governed by the laws of the State of Delaware, United States, without regard to conflict of law provisions. Disputes shall be resolved through binding arbitration as described in Section 12.</p>
-
-        <h3>12. Dispute Resolution & Arbitration</h3>
-        <p>Any dispute arising from these Terms shall first be attempted informally by contacting <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c00090b0d002c0b1e031b1f0009420f0301">[email&#160;protected]</a></strong>. If unresolved within 30 days, disputes shall be settled by binding arbitration under the American Arbitration Association rules.</p>
-        <div class="warning-box"><p><strong>Class Action Waiver:</strong> You agree that disputes will be resolved on an individual basis only — not as part of any class or representative action. You waive the right to a jury trial or class action lawsuit.</p></div>
-
-        <h3>13. Changes to Terms</h3>
-        <p>We may modify these Terms at any time. We will notify you of material changes via email or in-app notification at least 14 days before they take effect. Continued use after changes constitutes acceptance of the updated Terms.</p>
+  <div class="hero-right">
+    <div class="app-preview">
+      <div class="preview-header">
+        <div class="preview-logo">Growsle</div>
+        <div class="preview-time">Today · 7:42 AM</div>
       </div>
-    </section>
-
-    <!-- PRIVACY -->
-    <section class="legal-section" id="privacy">
-      <div class="section-header">
-        <div class="section-icon">🔒</div>
-        <div class="section-header-text"><h2>Privacy Policy</h2><p>What we collect, why we collect it, and how we use it</p></div>
+      <div class="preview-card">
+        <div class="card-tag">✦ Today's Guidance</div>
+        <div class="card-child">Noah · 2 years, 3 months</div>
+        <div class="card-text">"Noah is entering his first philosophical phase. Every 'why' is his brain building neural pathways. Answer with curiosity — try asking 'what do you think?' in return."</div>
       </div>
-      <div class="section-body">
-        <div class="green-box"><p><strong>Our Promise:</strong> Growsle does not sell your personal data. Ever. We collect only what we need to deliver an exceptional experience to your family.</p></div>
-
-        <h3>1. Information We Collect</h3>
-        <table class="data-table">
-          <thead><tr><th>Data Type</th><th>What We Collect</th><th>Why</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Account Data</strong></td><td>Name, email, hashed password</td><td>Account creation and management</td></tr>
-            <tr><td><strong>Child Profile Data</strong></td><td>Child's first name, date of birth, personality notes you enter</td><td>To personalise guidance</td></tr>
-            <tr><td><strong>Usage Data</strong></td><td>Features used, session duration, interactions</td><td>To improve the Service</td></tr>
-            <tr><td><strong>Device Data</strong></td><td>Device type, OS, browser, IP address</td><td>Security and analytics</td></tr>
-            <tr><td><strong>Payment Data</strong></td><td>Billing name, last 4 digits only (full card handled by Stripe)</td><td>To process subscriptions</td></tr>
-            <tr><td><strong>AI Conversations</strong></td><td>Questions asked and responses generated</td><td>To provide answers and improve AI quality</td></tr>
-          </tbody>
-        </table>
-
-        <h3>2. How We Use Your Information</h3>
-        <ul>
-          <li>To provide, maintain, and improve the Growsle Service</li>
-          <li>To personalise content based on your child's age and developmental stage</li>
-          <li>To send service-related communications (account, billing, important updates)</li>
-          <li>To send optional parenting insights and newsletters (opt out anytime)</li>
-          <li>To detect, prevent, and address fraud, abuse, and security issues</li>
-          <li>To comply with legal obligations</li>
-          <li>To improve our AI models using anonymised, aggregated data only</li>
-        </ul>
-
-        <h3>3. Data Sharing</h3>
-        <p>We do not sell, trade, or rent your personal information. We may share data only with: <strong>Service Providers</strong> (Stripe, AWS, SendGrid, OpenAI — all bound by strict data processing agreements); <strong>Legal Authorities</strong> when required by law; and in the event of a <strong>Business Transfer</strong>, where you will be notified and given the option to delete your data before any transfer.</p>
-
-        <h3>4. Data Retention</h3>
-        <p>We retain your data for as long as your account is active. You may request deletion at any time. Child profile data is permanently deleted within 30 days of account closure.</p>
-
-        <h3>5. Your Rights (GDPR & CCPA)</h3>
-        <ul>
-          <li><strong>Access:</strong> Request a copy of all personal data we hold about you</li>
-          <li><strong>Correction:</strong> Request correction of inaccurate data</li>
-          <li><strong>Deletion:</strong> Request permanent deletion of your personal data</li>
-          <li><strong>Portability:</strong> Receive your data in a machine-readable format</li>
-          <li><strong>Objection:</strong> Object to certain types of processing including direct marketing</li>
-          <li><strong>Opt-out of Sale:</strong> California residents may opt out (note: we do not sell data)</li>
-        </ul>
-        <p>To exercise any of these rights, email <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bececcd7c8dfddc7fed9ccd1c9cdd2db90ddd1d3">[email&#160;protected]</a></strong>. We will respond within 30 days.</p>
-
-        <h3>6. International Data Transfers</h3>
-        <p>Growsle is operated from the United States. Data from EEA residents is transferred under Standard Contractual Clauses approved by the European Commission.</p>
-      </div>
-    </section>
-
-    <!-- CHILDREN -->
-    <section class="legal-section" id="children">
-      <div class="section-header">
-        <div class="section-icon">👶</div>
-        <div class="section-header-text"><h2>Children's Privacy (COPPA)</h2><p>Special protections for data relating to children</p></div>
-      </div>
-      <div class="section-body">
-        <div class="warning-box"><p><strong>Important:</strong> Growsle is a service for parents and guardians — not for children. Children under 13 must never create accounts or use the Service directly.</p></div>
-
-        <h3>COPPA Compliance</h3>
-        <p>Growsle complies fully with the Children's Online Privacy Protection Act (COPPA). We do not knowingly collect personal information directly from children under 13. Our Service is designed exclusively for use by parents and guardians.</p>
-
-        <h3>Child Profile Data</h3>
-        <p>When you enter information about your child, that data is:</p>
-        <ul>
-          <li>Stored securely and used only to personalise guidance for the parent or guardian</li>
-          <li>Never used for advertising, marketing, or profiling purposes</li>
-          <li>Never shared with third parties except as required to deliver the Service</li>
-          <li>Permanently deleted within 30 days when a parent requests account closure</li>
-        </ul>
-
-        <h3>Parental Control</h3>
-        <p>As the account holder and legal guardian, you have complete control over your child's data. Review, update, or delete any child profile at any time from account settings or by contacting <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5727253e2136342e1730253820243b327934383a">[email&#160;protected]</a></strong>.</p>
-
-        <h3>Discovery of Underage Registration</h3>
-        <p>If we discover a child under 13 has created an account, we will immediately suspend the account, delete all associated data, and notify the registered email address. If you believe a child has registered without consent, contact us immediately.</p>
-      </div>
-    </section>
-
-    <!-- SECURITY -->
-    <section class="legal-section" id="security">
-      <div class="section-header">
-        <div class="section-icon">🛡️</div>
-        <div class="section-header-text"><h2>Security Policy</h2><p>How we protect your family's data</p></div>
-      </div>
-      <div class="section-body">
-        <h3>Technical Safeguards</h3>
-        <ul>
-          <li><strong>Encryption in Transit:</strong> All data transmitted is encrypted using TLS 1.3</li>
-          <li><strong>Encryption at Rest:</strong> All stored personal data is encrypted using AES-256</li>
-          <li><strong>Password Security:</strong> Passwords are hashed using bcrypt — never stored in plain text</li>
-          <li><strong>Payment Security:</strong> All payments processed by Stripe (PCI DSS Level 1 certified). We never store full card numbers</li>
-          <li><strong>Access Controls:</strong> Employee access to user data is strictly limited, logged, and requires multi-factor authentication</li>
-          <li><strong>Infrastructure:</strong> Hosted on AWS with automatic backups, redundancy, and DDoS protection</li>
-          <li><strong>Regular Audits:</strong> Quarterly security reviews and annual penetration testing</li>
-        </ul>
-
-        <h3>Organisational Safeguards</h3>
-        <ul>
-          <li>All employees with data access undergo background checks and security training</li>
-          <li>We follow a principle of least privilege — staff only access data necessary for their role</li>
-          <li>All third-party vendors are vetted for security compliance before any data access is granted</li>
-        </ul>
-
-        <h3>Data Breach Response</h3>
-        <p>In the event of a data breach affecting your personal information, Growsle will:</p>
-        <ol>
-          <li>Notify affected users via email within 72 hours of becoming aware of the breach</li>
-          <li>Notify relevant regulatory authorities as required by applicable law (GDPR, CCPA)</li>
-          <li>Provide full details of what data was affected and steps being taken</li>
-          <li>Offer guidance on protective actions you can take immediately</li>
-        </ol>
-
-        <h3>Vulnerability Disclosure</h3>
-        <p>If you discover a security vulnerability, please report it responsibly to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0271676177706b767b4265706d75716e672c616d6f">[email&#160;protected]</a></strong>. Do not publicly disclose until we have addressed it. We commit to acknowledging your report within 48 hours.</p>
-        <div class="info-box"><p><strong>Bug Bounty:</strong> We appreciate responsible disclosure and may offer recognition or compensation for significant security findings at our discretion.</p></div>
-      </div>
-    </section>
-
-    <!-- AI DISCLAIMER -->
-    <section class="legal-section" id="ai">
-      <div class="section-header">
-        <div class="section-icon">🤖</div>
-        <div class="section-header-text"><h2>AI & Technology Disclaimer</h2><p>Understanding how our AI works and its limitations</p></div>
-      </div>
-      <div class="section-body">
-        <div class="warning-box"><p><strong>Critical:</strong> Growsle's AI provides general parenting guidance only. It is not a substitute for professional advice from paediatricians, child psychologists, therapists, or other qualified professionals.</p></div>
-
-        <h3>How Our AI Works</h3>
-        <p>Growsle uses large language model (LLM) technology to generate personalised parenting guidance. Our AI is informed by general parenting research, child development literature, and expert resources, then personalised using information you provide about your child.</p>
-
-        <h3>AI Limitations — What You Must Know</h3>
-        <ul>
-          <li><strong>Not Always Accurate:</strong> AI can make mistakes, misunderstand context, or generate outdated information</li>
-          <li><strong>Not Personalised Medical Advice:</strong> The AI does not know your child's full medical history or individual health circumstances</li>
-          <li><strong>Knowledge Limits:</strong> The AI's training has cut-off dates and may not reflect the most current research</li>
-          <li><strong>Cultural Variance:</strong> Guidance reflects general developmental psychology and may not account for all cultural contexts</li>
-          <li><strong>Not a Crisis Resource:</strong> In any emergency, contact emergency services immediately. Do not rely on Growsle</li>
-        </ul>
-
-        <h3>No Liability for AI Errors</h3>
-        <p>Growsle expressly disclaims all liability for any harm, loss, or damage arising from reliance on AI-generated content. By using Growsle, you acknowledge the limitations of AI and agree to consult qualified professionals when appropriate.</p>
-      </div>
-    </section>
-
-    <!-- MEDICAL DISCLAIMER -->
-    <section class="legal-section" id="medical">
-      <div class="section-header">
-        <div class="section-icon">🏥</div>
-        <div class="section-header-text"><h2>Medical & Professional Disclaimer</h2><p>Critical information about the nature of Growsle's guidance</p></div>
-      </div>
-      <div class="section-body">
-        <div class="warning-box"><p><strong>Not Medical Advice.</strong> Nothing on Growsle constitutes medical, psychological, or professional advice of any kind. Always consult a qualified healthcare professional for your child's health and wellbeing.</p></div>
-
-        <h3>General Information Only</h3>
-        <p>All content provided through Growsle is for general informational and educational purposes only. It is not intended to replace, substitute for, or supplement professional medical advice, diagnosis, or treatment. Always seek the advice of your child's paediatrician or other qualified healthcare provider for any health-related concerns.</p>
-
-        <h3>Seek Professional Help Immediately For</h3>
-        <ul>
-          <li>Medical emergencies — call 911 (US) or your local emergency services immediately</li>
-          <li>Signs of serious developmental delay or regression</li>
-          <li>Any concern about your child's physical or mental health</li>
-          <li>Child abuse, neglect, or safeguarding concerns</li>
-          <li>Your own mental health crisis or postpartum depression</li>
-        </ul>
-
-        <h3>No Professional Relationship Created</h3>
-        <p>Use of Growsle does not create a doctor-patient, therapist-client, or any other professional relationship between you and Growsle. Growsle is a technology company, not a healthcare provider.</p>
-
-        <h3>Limitation of Liability for Health Decisions</h3>
-        <p>Growsle expressly disclaims all responsibility for any adverse outcomes resulting from parenting decisions made based on content provided through the Service. The risk of any action taken based on Growsle's content rests solely with you.</p>
-      </div>
-    </section>
-
-    <!-- COOKIES -->
-    <section class="legal-section" id="cookies">
-      <div class="section-header">
-        <div class="section-icon">🍪</div>
-        <div class="section-header-text"><h2>Cookie Policy</h2><p>What cookies we use and how to control them</p></div>
-      </div>
-      <div class="section-body">
-        <h3>What Are Cookies?</h3>
-        <p>Cookies are small text files stored on your device when you visit a website. They help us remember your preferences, keep you logged in, and understand how people use Growsle so we can improve it.</p>
-
-        <h3>Cookies We Use</h3>
-        <table class="data-table">
-          <thead><tr><th>Type</th><th>Purpose</th><th>Duration</th><th>Opt Out</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Essential</strong></td><td>Session management, security, preferences</td><td>Session / 30 days</td><td>No — required</td></tr>
-            <tr><td><strong>Analytics</strong></td><td>Anonymised usage patterns to improve the Service</td><td>Up to 2 years</td><td>Yes</td></tr>
-            <tr><td><strong>Performance</strong></td><td>Load times and error monitoring</td><td>Up to 1 year</td><td>Yes</td></tr>
-            <tr><td><strong>Marketing</strong></td><td>Campaign effectiveness measurement only</td><td>Up to 90 days</td><td>Yes</td></tr>
-          </tbody>
-        </table>
-
-        <h3>Managing Cookies</h3>
-        <p>Control cookies through your browser settings or via our Cookie Preferences panel (accessible from the page footer). Disabling essential cookies will prevent login and core features from functioning.</p>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="legal-section" id="contact">
-      <div class="section-header">
-        <div class="section-icon">✉️</div>
-        <div class="section-header-text"><h2>Contact & Dispute Resolution</h2><p>How to reach us and how we resolve disagreements</p></div>
-      </div>
-      <div class="section-body">
-        <h3>Contact Us</h3>
-        <p>All enquiries are handled through a single address. Select the subject that best describes your reason for getting in touch and we will route your message to the right team immediately.</p>
-
-        <div class="contact-form-wrap">
-          <div class="contact-email-display">
-            <div class="ced-label">One address for everything</div>
-            <div class="ced-email">hello@growsle.com</div>
-          </div>
-
-          <div class="subject-selector">
-            <div class="ss-label">Select your subject</div>
-            <div class="ss-options" id="subject-options">
-              <button class="ss-option active" onclick="selectSubject(this,'General Enquiry','hello@growsle.com')">
-                <span class="ss-icon">💬</span>
-                <span class="ss-text">General Enquiry</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Legal Matter','hello@growsle.com')">
-                <span class="ss-icon">⚖️</span>
-                <span class="ss-text">Legal Matter</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Privacy Request (GDPR / CCPA)','hello@growsle.com')">
-                <span class="ss-icon">🔒</span>
-                <span class="ss-text">Privacy Request (GDPR / CCPA)</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Security Vulnerability Report','hello@growsle.com')">
-                <span class="ss-icon">🛡️</span>
-                <span class="ss-text">Security Vulnerability Report</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Data Deletion Request','hello@growsle.com')">
-                <span class="ss-icon">🗑️</span>
-                <span class="ss-text">Data Deletion Request</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Billing & Subscription','hello@growsle.com')">
-                <span class="ss-icon">💳</span>
-                <span class="ss-text">Billing & Subscription</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Partnership or Press Enquiry','hello@growsle.com')">
-                <span class="ss-icon">🤝</span>
-                <span class="ss-text">Partnership or Press Enquiry</span>
-                <span class="ss-arrow">→</span>
-              </button>
-              <button class="ss-option" onclick="selectSubject(this,'Child Safety Concern','hello@growsle.com')">
-                <span class="ss-icon">👶</span>
-                <span class="ss-text">Child Safety Concern</span>
-                <span class="ss-arrow">→</span>
-              </button>
-            </div>
-
-            <div class="ss-compose" id="ss-compose">
-              <div class="ss-compose-label">Composing email to</div>
-              <div class="ss-compose-row">
-                <div class="ss-compose-info">
-                  <div class="ss-compose-to" id="ss-to">hello@growsle.com</div>
-                  <div class="ss-compose-subject" id="ss-subject-display">Subject: General Enquiry</div>
-                </div>
-                <button class="ss-open-btn" id="ss-open-btn" onclick="openEmail()">Open in Mail →</button>
-              </div>
-            </div>
-          </div>
+      <div class="preview-mini">
+        <div class="mini-stat">
+          <div class="mini-label">This week</div>
+          <div class="mini-val">Symbolic play</div>
         </div>
-
-        <div class="divider"></div>
-
-        <h3>Response Times</h3>
-        <ul>
-          <li><strong>General &amp; Billing:</strong> We aim to respond within 2 business days</li>
-          <li><strong>Legal &amp; Privacy:</strong> We respond within 5 business days as required by law</li>
-          <li><strong>Security Reports:</strong> We acknowledge within 48 hours and provide a resolution timeline within 7 days</li>
-          <li><strong>Data Deletion:</strong> Confirmed and completed within 30 days</li>
-        </ul>
-
-        <h3>Formal Dispute Process</h3>
-        <ol>
-          <li><strong>Contact:</strong> Email hello@growsle.com with subject "Legal Matter" and full details. We respond within 5 business days.</li>
-          <li><strong>Mediation:</strong> If unresolved after 30 days, either party may request non-binding mediation.</li>
-          <li><strong>Arbitration:</strong> If mediation fails, binding arbitration under American Arbitration Association rules. Venue: Delaware, USA.</li>
-        </ol>
-
-        <h3>Regulatory Complaints</h3>
-        <p>EU residents may lodge a complaint with their local Data Protection Authority. UK residents may contact the Information Commissioner's Office (ICO).</p>
-
-        <div class="highlight-box"><p><strong>Our Commitment:</strong> We take every concern seriously. Our goal is always to resolve issues quickly, fairly, and in a way that maintains your complete trust in Growsle.</p></div>
+        <div class="mini-stat">
+          <div class="mini-label">Sleep ideal</div>
+          <div class="mini-val">11–13 hrs</div>
+        </div>
       </div>
-    </section>
+      <div class="preview-qa">
+        <div class="qa-q">"He hit another child at his nursery today."</div>
+        <div class="qa-a">Entirely normal at 26 months. Toddlers strike because they lack vocabulary for large emotions. Try calmly: "Hitting hurts. Show me with words." Large reactions reinforce the behaviour.</div>
+      </div>
+      <div class="float-tag tr">✦ Age-exact intelligence</div>
+      <div class="float-tag bl">Learns your child over time</div>
+    </div>
+  </div>
+</section>
 
-  </main>
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num">260+</div><div class="stat-label">Families enrolled</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">0–10</div><div class="stat-label">Years of coverage</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">Daily</div><div class="stat-label">Personalised insight</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">24 / 7</div><div class="stat-label">Expert AI support</div></div>
 </div>
 
-<!-- AGREEMENT BAR -->
-<div class="agreement-bar" id="agreement-bar">
-  <p>By using Growsle, you confirm you have read and agree to our <strong>Terms of   <p>By using Growsle, you confirm you have read and agreed to all policies on this page. Last updated: April 5, 2026.</p>
-  <button class="agree-btn" onclick="dismissBar()">I Understand</button>
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="reveal">
+    <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">What Growsle does</div></div>
+    <h2 class="s-title">Intelligence that grows<br/>with every <em>stage.</em></h2>
+    <p class="s-sub">Every feature is built around your child's exact developmental position — calibrated to the week, not the month.</p>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feat">
+      <div class="feat-num">01</div>
+      <div class="feat-title">Age-Exact Daily Intelligence</div>
+      <div class="feat-desc">Guidance calibrated to your child's precise age in weeks — not broad ranges. What matters today, delivered today.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">02</div>
+      <div class="feat-title">Instant Behaviour Analysis</div>
+      <div class="feat-desc">Describe any behaviour — tantrums, sleep shifts, social changes — and receive research-backed context in seconds. No more 3am searching.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">03</div>
+      <div class="feat-title">Bespoke Bedtime Stories</div>
+      <div class="feat-desc">A new personalised story every night featuring your child's name, world, and a carefully chosen life lesson. Bedtime becomes something they treasure.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">04</div>
+      <div class="feat-title">Weekly Milestone Reports</div>
+      <div class="feat-desc">Know precisely what to observe this week developmentally and receive a clear signal when something warrants professional attention.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">05</div>
+      <div class="feat-title">Evening Reflection Practice</div>
+      <div class="feat-desc">One meaningful question each evening. Over time, this builds profound parenting confidence and deepens your bond with your child.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-num">06</div>
+      <div class="feat-title">Multi-Child Family Profiles</div>
+      <div class="feat-desc">Multiple children, each with their own completely personalised daily experience. No additional effort — just results for every child.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy section-alt" id="philosophy">
+  <div class="phil-quote reveal">
+    "The first years of a child's life are not a rehearsal. Every stage is <em>irreplaceable.</em> Growsle exists to make sure you never miss what matters."
+  </div>
+  <div class="phil-right reveal">
+    <div class="phil-point">
+      <div class="phil-point-title">Precision over generalisation</div>
+      <div class="phil-point-text">Generic parenting advice is built for the average child. Your child is not average. Growsle builds guidance from your child's exact age, temperament, and developmental stage — nothing generic ever enters your feed.</div>
+    </div>
+    <div class="phil-point">
+      <div class="phil-point-title">Intelligence that compounds</div>
+      <div class="phil-point-text">The longer you use Growsle, the smarter it becomes. The AI learns your specific child — their patterns, preferences, and pace — making every interaction more valuable than the last.</div>
+    </div>
+    <div class="phil-point">
+      <div class="phil-point-title">For every parent who shows up</div>
+      <div class="phil-point-text">Mothers, fathers, grandparents, guardians. Growsle is built for any adult who loves a child enough to want to raise them well. No exceptions, no exclusions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="reveal">
+    <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">How it works</div></div>
+    <h2 class="s-title">Three minutes to<br/>your first <em>insight.</em></h2>
+    <p class="s-sub">No complexity. No lengthy setup. Just intelligence when you need it.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step">
+      <div class="step-num">Step I</div>
+      <div class="step-title">Create Your Child's Profile</div>
+      <div class="step-text">Enter your child's name, date of birth, and a few personality notes. Growsle builds the rest instantly.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step II</div>
+      <div class="step-title">Receive Your Daily Brief</div>
+      <div class="step-text">Every morning, a personalised card: today's insight, this week's milestone, and one activity calibrated to your child's exact stage.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step III</div>
+      <div class="step-title">Ask Anything, Anytime</div>
+      <div class="step-text">Any question, any behaviour, any worry — answered with research-backed intelligence in seconds, day or night.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">Step IV</div>
+      <div class="step-title">Watch Growsle Learn</div>
+      <div class="step-text">Over time, Growsle builds a deep understanding of your specific child — every suggestion more precise than the last.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section-alt" id="pricing">
+  <div class="reveal" style="text-align:center">
+    <div class="s-eyebrow" style="justify-content:center"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">Membership</div><div class="s-eyebrow-line"></div></div>
+    <h2 class="s-title">Invest in the years<br/>that <em>cannot be undone.</em></h2>
+    <p class="s-sub" style="margin:0 auto">Simple, transparent membership. No hidden costs. Cancel at any time.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price">
+      <div class="price-top"></div>
+      <div class="price-plan">Essential</div>
+      <div class="price-amount">$0</div>
+      <div class="price-period">Always free</div>
+      <ul class="price-list">
+        <li>3 daily insights per day</li>
+        <li>5 AI questions per month</li>
+        <li>1 child profile</li>
+        <li>Basic milestone tracking</li>
+      </ul>
+      <button class="btn-outline" onclick="handleSignup('free')">Begin Free</button>
+    </div>
+    <div class="price featured">
+      <div class="price-top"></div>
+      <div class="price-badge">✦ Most Selected</div>
+      <div class="price-plan">Growsle Pro</div>
+      <div class="price-amount">$9.99</div>
+      <div class="price-period">Per month · cancel anytime</div>
+      <ul class="price-list">
+        <li>Unlimited daily intelligence</li>
+        <li>Unlimited AI consultation</li>
+        <li>Bespoke bedtime stories</li>
+        <li>Evening reflection practice</li>
+        <li>Weekly milestone reports</li>
+      </ul>
+      <button class="btn-gold-full" onclick="handleSignup('pro')">Request Early Access</button>
+    </div>
+    <div class="price">
+      <div class="price-top"></div>
+      <div class="price-plan">Family</div>
+      <div class="price-amount">$14.99</div>
+      <div class="price-period">Per month · all children included</div>
+      <ul class="price-list">
+        <li>Everything in Pro</li>
+        <li>Up to 3 child profiles</li>
+        <li>Partner shared access</li>
+        <li>Printable activity library</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="btn-outline" onclick="handleSignup('family')">Request Early Access</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <div class="reveal">
+    <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">Early voices</div></div>
+    <h2 class="s-title">What parents are<br/><em>saying.</em></h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi">
+      <div class="testi-text">"I have been on the waitlist since the beginning. The concept alone has changed how I approach every morning with my daughter. I cannot wait for this to be in my hands."</div>
+      <div class="testi-author">
+        <div class="testi-avi">A</div>
+        <div><div class="testi-name">Amara K.</div><div class="testi-role">Mother · 14-month-old</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-text">"As a first-time father I have seventeen browser tabs open every night at 3am. An intelligence that answers my specific questions about my specific son, instantly — I needed this before he was born."</div>
+      <div class="testi-author">
+        <div class="testi-avi">J</div>
+        <div><div class="testi-name">James T.</div><div class="testi-role">Father · Newborn</div></div>
+      </div>
+    </div>
+    <div class="testi">
+      <div class="testi-text">"The bedtime story feature alone justifies the entire subscription. My daughter is obsessed with elephants and the cosmos — a story built entirely for her, every single night, would be extraordinary."</div>
+      <div class="testi-author">
+        <div class="testi-avi">F</div>
+        <div><div class="testi-name">Fatima O.</div><div class="testi-role">Mother · 4-year-old</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-header">
+    <div class="reveal">
+      <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">Parent reviews</div></div>
+      <h2 class="s-title" style="margin-bottom:8px">Real words from<br/>real <em>families.</em></h2>
+      <p class="s-sub">Every review is genuine — written by parents on our waitlist.</p>
+    </div>
+    <button class="leave-btn reveal" onclick="openModal()">✦ &nbsp; Leave a Review</button>
+  </div>
+
+  <div class="reviews-summary reveal" id="reviews-summary">
+    <div class="summary-score" id="avg-score">5.0</div>
+    <div>
+      <div class="summary-stars" id="avg-stars">★★★★★</div>
+      <div class="summary-count" id="review-count">0 reviews</div>
+    </div>
+  </div>
+
+  <div class="reviews-grid" id="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"The concept alone changed how I think about raising my daughter. Nothing else comes close to what Growsle is building."</div>
+      <div class="review-author"><div class="review-avi">A</div><div><div class="review-name">Amara K.</div><div class="review-meta">Mother · 14 months</div></div></div>
+      <div class="review-date">March 28, 2026</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"First-time dad here. I needed this three years ago. The age-exact guidance alone is worth everything."</div>
+      <div class="review-author"><div class="review-avi">J</div><div><div class="review-name">James T.</div><div class="review-meta">Father · Newborn</div></div></div>
+      <div class="review-date">April 1, 2026</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"The bespoke bedtime story feature is unlike anything I have ever seen. My daughter would be absolutely captivated."</div>
+      <div class="review-author"><div class="review-avi">F</div><div><div class="review-name">Fatima O.</div><div class="review-meta">Mother · 4 years</div></div></div>
+      <div class="review-date">April 3, 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    <div class="modal-title">Share Your Thoughts</div>
+    <p class="modal-sub">You will also be added to the Growsle early access list on submission.</p>
+    <div class="form-row-2">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="r-name" placeholder="e.g. Sarah M." maxlength="50"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="r-email" placeholder="you@email.com"/>
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="form-group">
+        <label>Child's Age</label>
+        <select id="r-child">
+          <option value="">Select...</option>
+          <option>Newborn (0–3 months)</option>
+          <option>Infant (3–12 months)</option>
+          <option>Toddler (1–2 years)</option>
+          <option>Toddler (2–3 years)</option>
+          <option>Preschooler (3–5 years)</option>
+          <option>Child (5–8 years)</option>
+          <option>Child (8–10 years)</option>
+          <option>Multiple children</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your Rating</label>
+        <div class="star-row">
+          <input type="radio" name="rating" id="s5" value="5"/><label for="s5">★</label>
+          <input type="radio" name="rating" id="s4" value="4"/><label for="s4">★</label>
+          <input type="radio" name="rating" id="s3" value="3"/><label for="s3">★</label>
+          <input type="radio" name="rating" id="s2" value="2"/><label for="s2">★</label>
+          <input type="radio" name="rating" id="s1" value="1"/><label for="s1">★</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Your Review</label>
+      <textarea id="r-text" placeholder="Tell other parents what you think about Growsle..." maxlength="400"></textarea>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="submitReview()">Submit Review &amp; Join Waitlist</button>
+    <p class="modal-note">By submitting you agree to our <a href="growsle-legal.html" target="_blank">Terms &amp; Privacy Policy</a>. Reviews are public.</p>
+    <div class="success-msg" id="modal-success" style="margin-top:14px;justify-content:center;">— Review submitted. Thank you for joining the Growsle family.</div>
+  </div>
 </div>
 
+<!-- CTA -->
+<section class="cta-section" id="access">
+  <div class="reveal">
+    <h2 class="cta-title">Your child will not be<br/>this age <em>tomorrow.</em></h2>
+    <p class="cta-sub">Join 260+ families receiving early access to the parenting intelligence that keeps up with every stage of your child's extraordinary journey.</p>
+    <div class="cta-form">
+      <input type="email" id="cta-email" placeholder="Your email address"/>
+      <button class="btn-gold" onclick="handleSignup('cta')">Request Access</button>
+    </div>
+    <div class="success-msg" id="cta-success" style="justify-content:center;margin-top:20px;">— You are on the list. We will be in touch shortly.</div>
+    <p class="cta-note">No obligation &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; Early access only</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Grow<span>sle</span></div>
-  <p>© 2026 Growsle. All rights reserved.</p>
-  <div class="footer-links">
-    <a href="#terms">Terms</a>
-    <a href="#privacy">Privacy</a>
-    <a href="#security">Security</a>
-    <a href="#contact">Contact</a>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Grow<span>sle</span></div>
+      <p class="footer-desc">The world's most intelligent parenting co-pilot. Built for every parent who shows up.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Membership</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="growsle-legal.html#terms" target="_blank">Terms of Service</a>
+      <a href="growsle-legal.html#privacy" target="_blank">Privacy Policy</a>
+      <a href="growsle-legal.html#children" target="_blank">Children's Privacy</a>
+      <a href="growsle-legal.html#cookies" target="_blank">Cookie Policy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="growsle-legal.html#security" target="_blank">Security</a>
+      <a href="growsle-legal.html#ai" target="_blank">AI Disclaimer</a>
+      <a href="growsle-legal.html#medical" target="_blank">Medical Disclaimer</a>
+      <a href="growsle-legal.html#contact" target="_blank">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Growsle. All rights reserved. Built with devotion for every family.</p>
+    <div class="footer-legal">
+      <a href="growsle-legal.html#terms" target="_blank">Terms</a>
+      <a href="growsle-legal.html#privacy" target="_blank">Privacy</a>
+      <a href="growsle-legal.html#security" target="_blank">Security</a>
+      <a href="growsle-legal.html#contact" target="_blank">Contact</a>
+    </div>
   </div>
 </footer>
 
 <script>
-let currentSubject='General Enquiry';
-function selectSubject(btn,subject,email){
-  document.querySelectorAll('.ss-option').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currentSubject=subject;
-  document.getElementById('ss-subject-display').textContent='Subject: '+subject;
-  document.getElementById('ss-to').textContent=email;
-}
-function openEmail(){
-  const mailto='mailto:hello@growsle.com?subject='+encodeURIComponent('[Growsle] '+currentSubject);
-  window.location.href=mailto;
-}
-const sections=document.querySelectorAll('.legal-section');
-const navLinks=document.querySelectorAll('.sidebar-nav a');
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((entry,i)=>{
     if(entry.isIntersecting){
-      navLinks.forEach(l=>l.classList.remove('active'));
-      const id=entry.target.getAttribute('id');
-      const link=document.querySelector(`.sidebar-nav a[href="#${id}"]`);
-      if(link)link.classList.add('active');
+      setTimeout(()=>entry.target.classList.add('visible'),i*90);
+      obs.unobserve(entry.target);
     }
   });
-},{rootMargin:'-30% 0px -60% 0px'});
-sections.forEach(s=>observer.observe(s));
-function dismissBar(){
-  document.getElementById('agreement-bar').style.display='none';
-  localStorage.setItem('growsle-legal-agreed','1');
+},{threshold:.07});
+reveals.forEach(el=>obs.observe(el));
+
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbzoJ86DnMyIGzFmiOOUOdjkni7HF5yYcxZQVutHUgey7ULxH-UWbK4ihdL5ure3rCo/exec';
+
+async function sendToSheet(email, source){
+  try{
+    await fetch(SHEETS_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email, source})
+    });
+  }catch(err){
+    console.log('Sheet sync note:',err);
+  }
+  // Always save locally as backup
+  const emails=JSON.parse(localStorage.getItem('growsle-emails')||'[]');
+  if(!emails.includes(email)){emails.push(email);localStorage.setItem('growsle-emails',JSON.stringify(emails));}
 }
-if(localStorage.getItem('growsle-legal-agreed')){
-  const bar=document.getElementById('agreement-bar');
-  if(bar)bar.style.display='none';
+
+function handleSignup(src){
+  const map={
+    hero:['hero-email','hero-success','hero-form'],
+    cta:['cta-email','cta-success',null],
+    free:[null,null,null],pro:[null,null,null],family:[null,null,null]
+  };
+  const[emailId,successId,formId]=map[src]||[];
+  if(emailId){
+    const email=document.getElementById(emailId)?.value;
+    if(!email||!email.includes('@')){
+      const el=document.getElementById(emailId);
+      if(el){el.style.borderColor='var(--gold)';el.placeholder='Please enter a valid email';}
+      return;
+    }
+    if(successId)document.getElementById(successId).classList.add('show');
+    if(formId)document.getElementById(formId).style.display='none';
+    sendToSheet(email, src==='hero'?'Hero Form':'CTA Form');
+  }else{openModal();}
 }
+
+function openModal(){document.getElementById('review-modal').classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('review-modal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('review-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+const SEEDS=3;
+function getReviews(){return JSON.parse(localStorage.getItem('growsle-reviews')||'[]');}
+function saveReview(r){const reviews=getReviews();reviews.unshift(r);localStorage.setItem('growsle-reviews',JSON.stringify(reviews));}
+
+function esc(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function renderReviews(){
+  const reviews=getReviews();
+  const grid=document.getElementById('reviews-grid');
+  const summary=document.getElementById('reviews-summary');
+  grid.querySelectorAll('.dynamic-card').forEach(c=>c.remove());
+  if(reviews.length>0){
+    const first=grid.firstElementChild;
+    reviews.forEach(r=>{
+      const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+      const init=r.name?r.name[0].toUpperCase():'?';
+      const meta=r.childAge?`Parent · ${r.childAge}`:'Parent';
+      const dateStr=new Date(r.date).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+      const card=document.createElement('div');
+      card.className='review-card dynamic-card';
+      card.innerHTML=`<div class="review-stars">${stars}</div><div class="review-text">"${esc(r.text)}"</div><div class="review-author"><div class="review-avi">${init}</div><div><div class="review-name">${esc(r.name)}</div><div class="review-meta">${esc(meta)}</div></div></div><div class="review-date">${dateStr}</div>`;
+      grid.insertBefore(card,first);
+    });
+    const avg=(reviews.map(r=>r.rating).reduce((a,b)=>a+b,0)/reviews.length).toFixed(1);
+    const total=reviews.length+SEEDS;
+    document.getElementById('avg-score').textContent=avg;
+    document.getElementById('avg-stars').textContent='★'.repeat(Math.round(avg))+'☆'.repeat(5-Math.round(avg));
+    document.getElementById('review-count').textContent=`${total} review${total!==1?'s':''}`;
+    summary.style.display='flex';
+  }
+}
+
+function submitReview(){
+  const name=document.getElementById('r-name').value.trim();
+  const email=document.getElementById('r-email').value.trim();
+  const text=document.getElementById('r-text').value.trim();
+  const childAge=document.getElementById('r-child').value;
+  const ratingEl=document.querySelector('input[name="rating"]:checked');
+  const rating=ratingEl?parseInt(ratingEl.value):0;
+  if(!name){alert('Please enter your name.');return;}
+  if(!email||!email.includes('@')){alert('Please enter a valid email address.');return;}
+  if(!text||text.length<15){alert('Please write at least 15 characters in your review.');return;}
+  if(!rating){alert('Please select a star rating.');return;}
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Submitting...';
+  const review={name,email,text,childAge,rating,date:new Date().toISOString()};
+  saveReview(review);
+  sendToSheet(email,'Review Form — '+childAge);
+  setTimeout(()=>{
+    document.getElementById('modal-success').classList.add('show');
+    btn.style.display='none';
+    renderReviews();
+    setTimeout(()=>{
+      closeModal();
+      document.getElementById('r-name').value='';
+      document.getElementById('r-email').value='';
+      document.getElementById('r-text').value='';
+      document.getElementById('r-child').value='';
+      document.querySelectorAll('input[name="rating"]').forEach(i=>i.checked=false);
+      btn.disabled=false;btn.textContent='Submit Review & Join Waitlist';
+      btn.style.display='block';
+      document.getElementById('modal-success').classList.remove('show');
+    },2500);
+  },600);
+}
+renderReviews();
 </script>
 </body>
 </html>
