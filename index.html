@@ -3,751 +3,483 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Growsle — The World's Most Intelligent Parenting Co-Pilot</title>
+<title>Growsle — The AI Parenting Co-Pilot</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-
 :root{
-  --black:#080808;
-  --deep:#0F0F0F;
-  --card:#141414;
-  --card2:#1A1A1A;
-  --gold:#C9A84C;
-  --gold-lt:#E2C97E;
-  --gold-dim:rgba(201,168,76,0.12);
-  --gold-bdr:rgba(201,168,76,0.25);
-  --white:#FAFAF8;
-  --off:#F5F0E8;
-  --cream:#EDE6D6;
-  --text:#B8B0A0;
-  --text-dim:rgba(184,176,160,0.5);
-  --border:rgba(201,168,76,0.15);
+  --black:#080808;--deep:#0D0D0D;--card:#141414;--card2:#1C1C1C;
+  --gold:#C9A84C;--gold-lt:#E2C97E;--gold-dim:rgba(201,168,76,0.1);
+  --gold-bdr:rgba(201,168,76,0.22);
+  --white:#FAFAF8;--off:#F0EBE0;
+  --text:#A8A090;--text-dim:rgba(168,160,144,0.5);
+  --border:rgba(201,168,76,0.12);
   --green:#6B9E6B;
-  --red:#C0392B;
 }
-
 html{scroll-behavior:smooth;}
-body{
-  font-family:'Jost',sans-serif;
-  background:var(--black);
-  color:var(--white);
-  overflow-x:hidden;
-  cursor:default;
-}
-
-/* ── GRAIN OVERLAY ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  opacity:.6;
-}
-
-/* ── GOLD LINE TOP ── */
-body::after{
-  content:'';
-  position:fixed;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  z-index:200;
-}
+body{font-family:'Jost',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:200;}
 
 /* ── NAV ── */
 nav{
   position:fixed;top:0;width:100%;z-index:100;
-  padding:24px 64px;
+  padding:24px 72px;
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(8,8,8,0.85);
-  backdrop-filter:blur(24px);
+  background:rgba(8,8,8,0.9);
+  backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
-.logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.8rem;font-weight:600;letter-spacing:2px;
-  color:var(--white);text-transform:uppercase;
-}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--white);}
 .logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:40px;}
-.nav-links a{
-  font-size:.75rem;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--text);text-decoration:none;transition:color .2s;
-}
+.nav-links{display:flex;align-items:center;gap:44px;}
+.nav-links a{font-size:.68rem;font-weight:300;letter-spacing:2.5px;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .2s;}
 .nav-links a:hover{color:var(--gold);}
-.nav-cta{
-  font-size:.7rem!important;font-weight:400!important;letter-spacing:2px!important;
+.nav-waitlist{
   border:1px solid var(--gold-bdr)!important;
   padding:10px 28px;color:var(--gold)!important;
   transition:all .2s!important;
 }
-.nav-cta:hover{background:var(--gold)!important;color:var(--black)!important;}
+.nav-waitlist:hover{background:var(--gold)!important;color:var(--black)!important;}
 
 /* ── HERO ── */
 .hero{
   min-height:100vh;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:0;align-items:stretch;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 40px 80px;
   position:relative;overflow:hidden;
 }
-.hero-left{
-  padding:160px 64px 80px;
-  display:flex;flex-direction:column;justify-content:center;
-  border-right:1px solid var(--border);
-  position:relative;z-index:1;
-}
-.hero-right{
-  padding:160px 64px 80px;
-  display:flex;flex-direction:column;justify-content:center;
-  position:relative;z-index:1;
-}
-
-/* Ambient glows */
 .hero::before{
   content:'';position:absolute;
-  top:-300px;left:-200px;
-  width:700px;height:700px;
-  background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);
+  top:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:800px;
+  background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 65%);
   border-radius:50%;pointer-events:none;
 }
-.hero::after{
-  content:'';position:absolute;
-  bottom:-200px;right:-100px;
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(107,158,107,.04) 0%,transparent 65%);
-  border-radius:50%;pointer-events:none;
-}
-
-.hero-eyebrow{
+.hero-tag{
   display:inline-flex;align-items:center;gap:12px;
-  margin-bottom:36px;
+  margin-bottom:40px;
   animation:fadeUp .8s ease both;
 }
-.eyebrow-line{width:40px;height:1px;background:var(--gold);}
-.eyebrow-text{
-  font-size:.65rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);
-}
+.tag-line{width:36px;height:1px;background:var(--gold);}
+.tag-text{font-size:.62rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
 
 .hero-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(3.2rem,5.5vw,5.5rem);
+  font-size:clamp(3rem,6vw,6rem);
   font-weight:300;line-height:1.0;
-  letter-spacing:-1px;
-  color:var(--white);
-  margin-bottom:32px;
+  letter-spacing:-1px;color:var(--white);
+  max-width:800px;margin:0 auto 28px;
   animation:fadeUp .8s .1s ease both;
 }
 .hero-title em{font-style:italic;color:var(--gold);}
-.hero-title .thin{font-weight:300;color:var(--text);}
 
 .hero-sub{
-  font-size:.95rem;font-weight:300;line-height:1.9;
-  color:var(--text);max-width:440px;
-  margin-bottom:52px;letter-spacing:.3px;
+  font-size:1rem;font-weight:300;line-height:1.9;
+  color:var(--text);max-width:520px;
+  margin:0 auto 56px;letter-spacing:.3px;
   animation:fadeUp .8s .2s ease both;
 }
 
-.hero-form{
-  display:flex;flex-direction:column;gap:12px;
+/* WAITLIST FORM */
+.waitlist-box{
+  width:100%;max-width:480px;margin:0 auto;
   animation:fadeUp .8s .3s ease both;
-  max-width:420px;
 }
-.form-row{display:flex;gap:10px;}
-.hero-form input{
-  flex:1;padding:16px 22px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(201,168,76,.2);
-  font-family:'Jost',sans-serif;font-size:.85rem;font-weight:300;
-  letter-spacing:.5px;color:var(--white);outline:none;
-  transition:border-color .2s;
+.waitlist-label{
+  font-size:.6rem;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text-dim);
+  margin-bottom:16px;
 }
-.hero-form input:focus{border-color:var(--gold);}
-.hero-form input::placeholder{color:var(--text-dim);}
-.btn-gold{
+.waitlist-input-row{display:flex;gap:0;}
+.waitlist-input-row input{
+  flex:1;padding:18px 24px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-right:none;
+  font-family:'Jost',sans-serif;font-size:.9rem;
+  font-weight:300;letter-spacing:.3px;color:var(--white);
+  outline:none;transition:border-color .2s;
+}
+.waitlist-input-row input:focus{border-color:var(--gold);}
+.waitlist-input-row input::placeholder{color:var(--text-dim);}
+.waitlist-btn{
   background:var(--gold);color:var(--black);
-  padding:16px 36px;border:none;cursor:pointer;
-  font-family:'Jost',sans-serif;font-size:.7rem;
-  font-weight:500;letter-spacing:3px;text-transform:uppercase;
-  transition:all .25s;white-space:nowrap;
+  padding:18px 32px;border:none;cursor:pointer;
+  font-family:'Jost',sans-serif;font-size:.65rem;
+  font-weight:500;letter-spacing:2.5px;text-transform:uppercase;
+  transition:all .2s;white-space:nowrap;
 }
-.btn-gold:hover{background:var(--gold-lt);transform:translateY(-2px);}
-.hero-note{
-  font-size:.7rem;font-weight:300;letter-spacing:1px;
-  color:var(--text-dim);
+.waitlist-btn:hover{background:var(--gold-lt);}
+.waitlist-note{
+  font-size:.68rem;font-weight:300;letter-spacing:.5px;
+  color:var(--text-dim);margin-top:16px;
 }
-.hero-note strong{color:var(--green);font-weight:400;}
-
+.waitlist-note strong{color:var(--green);font-weight:400;}
 .success-msg{
-  display:none;align-items:center;gap:12px;
-  border:1px solid rgba(107,158,107,.3);
-  padding:14px 20px;
-  color:var(--green);font-size:.8rem;
-  font-weight:300;letter-spacing:1px;
+  display:none;align-items:center;justify-content:center;gap:12px;
+  border:1px solid rgba(107,158,107,.25);
+  padding:16px 24px;margin-top:12px;
+  color:var(--green);font-size:.8rem;font-weight:300;letter-spacing:1px;
 }
 .success-msg.show{display:flex;}
 
-/* ── APP PREVIEW ── */
-.app-preview{
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:32px;
-  max-width:360px;
-  margin-left:auto;
-  position:relative;
-  animation:fadeUp .9s .2s ease both;
-}
-.app-preview::before{
-  content:'';position:absolute;
-  top:-1px;left:40px;right:40px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-}
-.preview-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:24px;padding-bottom:20px;
+/* ── GOLD DIVIDER ── */
+.gold-rule{
+  width:100%;padding:0 72px;
+  display:flex;align-items:center;gap:0;
+  border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
 }
-.preview-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.1rem;font-weight:600;letter-spacing:2px;
-  text-transform:uppercase;color:var(--gold);
+.stat-row{
+  display:flex;align-items:center;
+  width:100%;
 }
-.preview-time{font-size:.7rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);}
-
-.preview-card{
-  background:var(--card2);
-  border:1px solid var(--border);
-  padding:20px;margin-bottom:14px;
-  position:relative;overflow:hidden;
+.stat-item{
+  flex:1;padding:28px 0;text-align:center;
+  border-right:1px solid var(--border);
 }
-.preview-card::before{
-  content:'';position:absolute;
-  top:0;left:0;width:2px;height:100%;
-  background:var(--gold);
-}
-.card-tag{
-  font-size:.6rem;font-weight:300;letter-spacing:3px;
-  text-transform:uppercase;color:var(--gold);
-  margin-bottom:8px;
-}
-.card-child{
-  font-size:.75rem;font-weight:300;letter-spacing:.5px;
-  color:var(--text);margin-bottom:10px;
-}
-.card-text{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;font-weight:300;
-  line-height:1.6;color:var(--white);
-  font-style:italic;
-}
-
-.preview-mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.mini-stat{
-  background:var(--card2);border:1px solid var(--border);
-  padding:14px;
-}
-.mini-label{font-size:.6rem;font-weight:300;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
-.mini-val{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;color:var(--white);}
-
-.preview-qa{
-  background:var(--card2);border:1px solid var(--border);
-  padding:16px;
-}
-.qa-q{font-size:.72rem;font-weight:300;letter-spacing:.5px;color:var(--gold);margin-bottom:8px;}
-.qa-a{font-size:.78rem;font-weight:300;line-height:1.65;color:var(--text);}
-
-.float-tag{
-  position:absolute;
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:10px 18px;
-  font-size:.65rem;font-weight:300;letter-spacing:2px;
-  text-transform:uppercase;color:var(--gold);
-  white-space:nowrap;
-}
-.float-tag.tr{top:-18px;right:-20px;}
-.float-tag.bl{bottom:30px;left:-30px;color:var(--text);}
-
-/* ── DIVIDER ── */
-.divider{
-  height:1px;margin:0;
-  background:linear-gradient(90deg,transparent,var(--border),transparent);
-}
-
-/* ── STATS STRIP ── */
-.stats{
-  padding:40px 64px;
-  display:flex;align-items:center;justify-content:center;
-  gap:80px;flex-wrap:wrap;
-  border-bottom:1px solid var(--border);
-}
-.stat-item{text-align:center;}
+.stat-item:last-child{border-right:none;}
 .stat-num{
   font-family:'Cormorant Garamond',serif;
-  font-size:2.8rem;font-weight:300;color:var(--gold);
-  letter-spacing:-1px;line-height:1;
+  font-size:2.2rem;font-weight:300;
+  color:var(--gold);line-height:1;
 }
-.stat-label{font-size:.62rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text);margin-top:6px;}
-.stat-div{width:1px;height:50px;background:var(--border);}
+.stat-label{font-size:.58rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-top:5px;}
 
 /* ── SECTIONS ── */
-.section{padding:120px 64px;position:relative;z-index:1;}
+.section{padding:120px 72px;}
+.section-center{text-align:center;}
 .section-alt{background:var(--deep);}
 
-.s-eyebrow{
-  display:flex;align-items:center;gap:16px;margin-bottom:20px;
-}
-.s-eyebrow-line{width:32px;height:1px;background:var(--gold);}
-.s-eyebrow-text{font-size:.62rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.section-center .eyebrow{justify-content:center;}
+.ey-line{width:28px;height:1px;background:var(--gold);}
+.ey-text{font-size:.6rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;color:var(--gold);}
 
 .s-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.4rem,4vw,4rem);
+  font-size:clamp(2.2rem,3.5vw,3.5rem);
   font-weight:300;letter-spacing:-1px;line-height:1.05;
-  color:var(--white);margin-bottom:20px;
+  color:var(--white);margin-bottom:18px;
 }
 .s-title em{font-style:italic;color:var(--gold);}
-.s-sub{
-  font-size:.9rem;font-weight:300;line-height:1.85;
-  color:var(--text);max-width:500px;letter-spacing:.3px;
-}
+.s-sub{font-size:.9rem;font-weight:300;line-height:1.9;color:var(--text);letter-spacing:.3px;}
+.s-sub-center{max-width:520px;margin:0 auto;}
 
-/* ── FEATURES ── */
-.features-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+/* ── FEATURES — 2 column editorial ── */
+.features-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
   gap:1px;background:var(--border);
   margin-top:72px;border:1px solid var(--border);
 }
 .feat{
   background:var(--black);
-  padding:40px 36px;
-  transition:background .25s;
-  position:relative;overflow:hidden;
+  padding:48px 44px;
+  transition:background .3s;
+  position:relative;
 }
-.feat::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  opacity:0;transition:opacity .25s;
-}
+.section-alt .feat{background:var(--deep);}
 .feat:hover{background:var(--card);}
-.feat:hover::before{opacity:1;}
 .feat-num{
   font-family:'Cormorant Garamond',serif;
-  font-size:3rem;font-weight:300;color:var(--border);
-  line-height:1;margin-bottom:24px;
-  transition:color .25s;
+  font-size:.75rem;font-weight:400;letter-spacing:4px;
+  color:var(--gold);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
 }
-.feat:hover .feat-num{color:var(--gold-bdr);}
+.feat-num::after{content:'';flex:0 0 24px;height:1px;background:var(--gold-bdr);}
 .feat-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.3rem;font-weight:400;color:var(--white);
-  margin-bottom:12px;letter-spacing:.3px;
+  font-size:1.3rem;font-weight:400;
+  color:var(--white);margin-bottom:12px;
 }
-.feat-desc{font-size:.82rem;font-weight:300;line-height:1.8;color:var(--text);}
+.feat-desc{font-size:.82rem;font-weight:300;line-height:1.85;color:var(--text);}
 
-/* ── PHILOSOPHY SECTION ── */
-.philosophy{
-  padding:120px 64px;
-  display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;
+/* ── PULL QUOTE ── */
+.pullquote-section{
+  padding:100px 72px;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  text-align:center;
 }
-.phil-quote{
+.pullquote{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.8rem,3vw,2.8rem);
+  font-size:clamp(1.6rem,3vw,2.8rem);
   font-weight:300;font-style:italic;
-  line-height:1.3;color:var(--white);
-  border-left:1px solid var(--gold);
-  padding-left:40px;
+  line-height:1.4;color:var(--white);
+  max-width:700px;margin:0 auto 28px;
 }
-.phil-quote em{color:var(--gold);font-style:normal;}
-.phil-right{display:flex;flex-direction:column;gap:32px;}
-.phil-point{}
-.phil-point-title{
-  font-size:.7rem;font-weight:400;letter-spacing:3px;
-  text-transform:uppercase;color:var(--gold);
-  margin-bottom:10px;
+.pullquote em{color:var(--gold);font-style:normal;}
+.pullquote-attr{
+  font-size:.65rem;font-weight:300;letter-spacing:3px;
+  text-transform:uppercase;color:var(--text-dim);
 }
-.phil-point-text{font-size:.88rem;font-weight:300;line-height:1.85;color:var(--text);}
 
 /* ── HOW IT WORKS ── */
-.steps{
+.steps-wrap{
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:0;margin-top:72px;
   border:1px solid var(--border);
 }
 .step{
-  padding:40px 32px;
+  padding:44px 36px;
   border-right:1px solid var(--border);
   position:relative;
 }
 .step:last-child{border-right:none;}
 .step-num{
   font-family:'Cormorant Garamond',serif;
-  font-size:.8rem;font-weight:400;letter-spacing:3px;
+  font-size:.7rem;font-weight:400;letter-spacing:4px;
   color:var(--gold);margin-bottom:24px;
 }
 .step-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.25rem;font-weight:400;color:var(--white);
-  margin-bottom:12px;
+  font-size:1.15rem;font-weight:400;
+  color:var(--white);margin-bottom:10px;
 }
-.step-text{font-size:.8rem;font-weight:300;line-height:1.8;color:var(--text);}
+.step-text{font-size:.8rem;font-weight:300;line-height:1.85;color:var(--text);}
 
 /* ── PRICING ── */
-.pricing-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
+.pricing-wrap{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
   gap:1px;background:var(--border);
   margin-top:72px;border:1px solid var(--border);
 }
-.price{
-  background:var(--black);
-  padding:48px 36px;
-  position:relative;
+.price-col{background:var(--black);padding:48px 40px;position:relative;}
+.price-col.featured{background:var(--card);}
+.price-top-bar{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--gold);display:none;
 }
-.price.featured{background:var(--card);}
-.price-top{
-  position:absolute;top:-1px;left:0;right:0;height:1px;
-  background:var(--gold);
-  display:none;
-}
-.price.featured .price-top{display:block;}
-.price-badge{
-  font-size:.6rem;font-weight:400;letter-spacing:3px;
-  text-transform:uppercase;color:var(--gold);
-  margin-bottom:20px;
-}
-.price-plan{
-  font-size:.65rem;font-weight:300;letter-spacing:3px;
-  text-transform:uppercase;color:var(--text);
-  margin-bottom:12px;
-}
-.price-amount{
+.price-col.featured .price-top-bar{display:block;}
+.price-tag{font-size:.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.price-plan{font-size:.62rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px;}
+.price-num{
   font-family:'Cormorant Garamond',serif;
-  font-size:3.5rem;font-weight:300;color:var(--white);
-  line-height:1;
+  font-size:3.5rem;font-weight:300;color:var(--white);line-height:1;
 }
-.price-period{font-size:.72rem;font-weight:300;letter-spacing:1px;color:var(--text);margin-bottom:32px;}
+.price-per{font-size:.72rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);margin-bottom:32px;}
 .price-list{list-style:none;margin-bottom:36px;}
 .price-list li{
-  font-size:.8rem;font-weight:300;padding:10px 0;
-  border-bottom:1px solid var(--border);
-  color:var(--text);display:flex;align-items:center;gap:12px;
-  letter-spacing:.3px;
+  font-size:.8rem;font-weight:300;
+  padding:9px 0;border-bottom:1px solid var(--border);
+  color:var(--text);display:flex;align-items:center;gap:10px;
 }
-.price-list li::before{
-  content:'';width:4px;height:4px;
-  border-radius:50%;background:var(--gold);flex-shrink:0;
-}
-.btn-outline{
-  width:100%;padding:14px;
-  background:transparent;
+.price-list li::before{content:'';width:3px;height:3px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.btn-ghost{
+  width:100%;padding:14px;background:transparent;
   border:1px solid var(--border);
-  font-family:'Jost',sans-serif;
-  font-size:.65rem;font-weight:300;letter-spacing:3px;
-  text-transform:uppercase;color:var(--text);
+  font-family:'Jost',sans-serif;font-size:.62rem;font-weight:300;
+  letter-spacing:3px;text-transform:uppercase;color:var(--text);
   cursor:pointer;transition:all .2s;
 }
-.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 .btn-gold-full{
-  width:100%;padding:14px;background:var(--gold);
-  border:none;font-family:'Jost',sans-serif;
-  font-size:.65rem;font-weight:500;letter-spacing:3px;
-  text-transform:uppercase;color:var(--black);
+  width:100%;padding:14px;background:var(--gold);border:none;
+  font-family:'Jost',sans-serif;font-size:.62rem;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;color:var(--black);
   cursor:pointer;transition:all .2s;
 }
 .btn-gold-full:hover{background:var(--gold-lt);}
 
-/* ── TESTIMONIALS ── */
-.testi-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:24px;margin-top:72px;
-}
-.testi{
-  background:var(--card);border:1px solid var(--border);
-  padding:36px;position:relative;overflow:hidden;
-}
-.testi::before{
-  content:'\201C';
-  position:absolute;top:-10px;right:20px;
-  font-family:'Cormorant Garamond',serif;
-  font-size:8rem;font-weight:300;
-  color:var(--gold-bdr);line-height:1;
-}
-.testi-text{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;font-weight:300;font-style:italic;
-  line-height:1.7;color:var(--white);
-  margin-bottom:24px;position:relative;z-index:1;
-}
-.testi-author{display:flex;align-items:center;gap:14px;}
-.testi-avi{
-  width:38px;height:38px;
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;background:var(--card2);
-  font-family:'Cormorant Garamond',serif;
-  font-weight:400;color:var(--gold);
-}
-.testi-name{font-size:.78rem;font-weight:400;color:var(--white);letter-spacing:.5px;}
-.testi-role{font-size:.68rem;font-weight:300;letter-spacing:1px;color:var(--text);}
-
-/* ── REVIEWS SECTION ── */
-.reviews-section{padding:120px 64px;background:var(--deep);border-top:1px solid var(--border);}
-.reviews-header{
-  display:flex;align-items:flex-end;justify-content:space-between;
-  flex-wrap:wrap;gap:32px;margin-bottom:56px;
-}
+/* ── REVIEWS ── */
+.reviews-section{padding:120px 72px;background:var(--deep);}
+.reviews-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:56px;}
 .leave-btn{
-  display:inline-flex;align-items:center;gap:12px;
-  border:1px solid var(--border);padding:14px 32px;
-  font-size:.65rem;font-weight:300;letter-spacing:3px;
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid var(--border);padding:13px 28px;
+  font-size:.62rem;font-weight:300;letter-spacing:3px;
   text-transform:uppercase;color:var(--gold);
-  background:transparent;cursor:pointer;
-  transition:all .2s;
+  background:transparent;cursor:pointer;transition:all .2s;
 }
 .leave-btn:hover{background:var(--gold-dim);border-color:var(--gold);}
 
-/* MODAL */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(8,8,8,.85);z-index:300;
-  align-items:center;justify-content:center;
-  padding:24px;backdrop-filter:blur(12px);
-}
-.modal-overlay.open{display:flex;}
-.modal{
-  background:var(--deep);
-  border:1px solid var(--border);
-  padding:48px;max-width:540px;width:100%;
-  position:relative;
-  animation:modalIn .3s ease;
-}
-.modal::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-}
-@keyframes modalIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-.modal-close{
-  position:absolute;top:20px;right:20px;
-  background:transparent;border:none;
-  font-size:.8rem;color:var(--text);cursor:pointer;
-  letter-spacing:1px;
-  transition:color .2s;
-}
-.modal-close:hover{color:var(--gold);}
-.modal-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.8rem;font-weight:300;color:var(--white);
-  margin-bottom:6px;
-}
-.modal-sub{font-size:.78rem;font-weight:300;color:var(--text);margin-bottom:32px;letter-spacing:.3px;}
-
-.form-group{margin-bottom:18px;}
-.form-group label{
-  display:block;font-size:.62rem;font-weight:300;
-  letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--text);margin-bottom:8px;
-}
-.form-group input,.form-group textarea,.form-group select{
-  width:100%;padding:13px 16px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(201,168,76,.15);
-  font-family:'Jost',sans-serif;font-size:.85rem;
-  font-weight:300;color:var(--white);outline:none;
-  transition:border-color .2s;resize:vertical;
-  letter-spacing:.3px;
-}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);}
-.form-group textarea{min-height:90px;}
-.form-group select option{background:var(--deep);color:var(--white);}
-.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-
-.star-row{display:flex;gap:6px;flex-direction:row-reverse;justify-content:flex-end;}
-.star-row input{display:none;}
-.star-row label{
-  font-size:1.6rem;cursor:pointer;color:var(--border);
-  transition:color .15s;line-height:1;
-}
-.star-row label:hover,.star-row label:hover~label,.star-row input:checked~label{color:var(--gold);}
-
-.submit-btn{
-  width:100%;padding:16px;background:var(--gold);
-  border:none;font-family:'Jost',sans-serif;
-  font-size:.65rem;font-weight:500;letter-spacing:3px;
-  text-transform:uppercase;color:var(--black);
-  cursor:pointer;transition:all .2s;margin-top:8px;
-}
-.submit-btn:hover{background:var(--gold-lt);}
-.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
-.modal-note{font-size:.65rem;font-weight:300;color:var(--text-dim);margin-top:10px;text-align:center;letter-spacing:.5px;}
-.modal-note a{color:var(--gold);text-decoration:none;}
-
-/* REVIEW CARDS */
 .reviews-summary{
-  display:flex;align-items:center;gap:24px;
+  display:flex;align-items:center;gap:20px;
   border:1px solid var(--border);padding:20px 28px;
-  margin-bottom:40px;background:var(--card);
-  display:none;
+  margin-bottom:32px;background:var(--card);display:none;
 }
-.summary-score{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3.5rem;font-weight:300;color:var(--gold);line-height:1;
-}
-.summary-stars{color:var(--gold);font-size:1.1rem;margin-bottom:4px;}
-.summary-count{font-size:.7rem;font-weight:300;letter-spacing:1px;color:var(--text);}
+.avg-score{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);line-height:1;}
+.avg-stars{color:var(--gold);font-size:1rem;margin-bottom:4px;}
+.avg-count{font-size:.68rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);}
 
 .reviews-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:1px;background:var(--border);
+  gap:1px;background:var(--border);border:1px solid var(--border);
 }
 .review-card{
-  background:var(--black);padding:32px;
+  background:var(--deep);padding:36px;
   transition:background .2s;
   animation:fadeUp .5s ease both;
 }
 .review-card:hover{background:var(--card);}
-.review-stars{color:var(--gold);font-size:.9rem;letter-spacing:2px;margin-bottom:14px;}
+.review-stars{color:var(--gold);font-size:.85rem;letter-spacing:2px;margin-bottom:16px;}
 .review-text{
   font-family:'Cormorant Garamond',serif;
   font-size:1rem;font-weight:300;font-style:italic;
-  line-height:1.7;color:var(--white);margin-bottom:20px;
+  line-height:1.75;color:var(--white);margin-bottom:22px;
 }
 .review-author{display:flex;align-items:center;gap:12px;}
 .review-avi{
   width:36px;height:36px;border:1px solid var(--border);
   display:flex;align-items:center;justify-content:center;
   font-family:'Cormorant Garamond',serif;font-size:.9rem;
-  color:var(--gold);background:var(--card2);
+  color:var(--gold);background:var(--card2);flex-shrink:0;
 }
-.review-name{font-size:.8rem;font-weight:400;color:var(--white);letter-spacing:.5px;}
-.review-meta{font-size:.68rem;font-weight:300;letter-spacing:1px;color:var(--text);}
-.review-date{
-  font-size:.65rem;font-weight:300;letter-spacing:1px;
-  color:var(--text-dim);margin-top:14px;
-  padding-top:12px;border-top:1px solid var(--border);
+.review-name{font-size:.82rem;font-weight:400;color:var(--white);letter-spacing:.5px;}
+.review-meta{font-size:.68rem;font-weight:300;letter-spacing:.5px;color:var(--text-dim);}
+.review-date{font-size:.62rem;color:var(--text-dim);margin-top:14px;padding-top:12px;border-top:1px solid var(--border);}
+
+/* ── MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(8,8,8,.88);z-index:300;
+  align-items:center;justify-content:center;
+  padding:24px;backdrop-filter:blur(16px);
 }
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--deep);border:1px solid var(--border);
+  padding:48px;max-width:520px;width:100%;
+  position:relative;animation:modalIn .3s ease;
+}
+.modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.modal-close{
+  position:absolute;top:20px;right:20px;
+  background:transparent;border:none;
+  font-size:.75rem;color:var(--text);cursor:pointer;
+  letter-spacing:1px;transition:color .2s;
+}
+.modal-close:hover{color:var(--gold);}
+.modal-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;font-weight:300;color:var(--white);margin-bottom:6px;
+}
+.modal-sub{font-size:.78rem;font-weight:300;color:var(--text);margin-bottom:28px;letter-spacing:.3px;}
+
+.fg{margin-bottom:16px;}
+.fg label{
+  display:block;font-size:.58rem;font-weight:300;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:7px;
+}
+.fg input,.fg textarea,.fg select{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  font-family:'Jost',sans-serif;font-size:.85rem;
+  font-weight:300;color:var(--white);outline:none;
+  transition:border-color .2s;resize:vertical;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold);}
+.fg textarea{min-height:90px;}
+.fg select option{background:var(--deep);}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.star-row{display:flex;gap:6px;flex-direction:row-reverse;justify-content:flex-end;}
+.star-row input{display:none;}
+.star-row label{font-size:1.6rem;cursor:pointer;color:var(--border);transition:color .15s;line-height:1;}
+.star-row label:hover,.star-row label:hover~label,.star-row input:checked~label{color:var(--gold);}
+
+.submit-btn{
+  width:100%;padding:16px;background:var(--gold);border:none;
+  font-family:'Jost',sans-serif;font-size:.62rem;font-weight:500;
+  letter-spacing:3px;text-transform:uppercase;color:var(--black);
+  cursor:pointer;transition:all .2s;margin-top:8px;
+}
+.submit-btn:hover{background:var(--gold-lt);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+.modal-note{font-size:.62rem;color:var(--text-dim);margin-top:10px;text-align:center;letter-spacing:.3px;}
+.modal-note a{color:var(--gold);text-decoration:none;}
 
 /* ── CTA ── */
 .cta-section{
-  padding:140px 64px;text-align:center;
-  position:relative;overflow:hidden;
+  padding:140px 72px;text-align:center;
   border-top:1px solid var(--border);
+  position:relative;overflow:hidden;
 }
 .cta-section::before{
-  content:'';position:absolute;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  width:600px;height:600px;
-  background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 65%);
+  content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(201,168,76,0.05) 0%,transparent 65%);
   border-radius:50%;pointer-events:none;
 }
 .cta-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-size:clamp(2.4rem,4.5vw,4.2rem);
   font-weight:300;letter-spacing:-1px;line-height:1.05;
   color:var(--white);margin-bottom:20px;
 }
 .cta-title em{font-style:italic;color:var(--gold);}
 .cta-sub{
-  font-size:.9rem;font-weight:300;line-height:1.85;
-  color:var(--text);max-width:480px;
-  margin:0 auto 56px;letter-spacing:.3px;
-}
-.cta-form{
-  display:flex;gap:0;justify-content:center;
-  flex-wrap:wrap;max-width:520px;margin:0 auto;
-}
-.cta-form input{
-  flex:1;min-width:260px;padding:18px 24px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(201,168,76,.2);border-right:none;
-  font-family:'Jost',sans-serif;font-size:.85rem;
-  font-weight:300;color:var(--white);outline:none;
-  transition:border-color .2s;letter-spacing:.3px;
-}
-.cta-form input:focus{border-color:var(--gold);}
-.cta-form input::placeholder{color:var(--text-dim);}
-.cta-note{
-  margin-top:20px;font-size:.65rem;
-  font-weight:300;letter-spacing:2px;
-  text-transform:uppercase;color:var(--text-dim);
+  font-size:.9rem;font-weight:300;line-height:1.9;
+  color:var(--text);max-width:460px;
+  margin:0 auto 52px;letter-spacing:.3px;
 }
 
 /* ── FOOTER ── */
 footer{
   background:var(--deep);
   border-top:1px solid var(--border);
-  padding:64px;
+  padding:60px 72px 40px;
 }
 .footer-top{
   display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:64px;margin-bottom:56px;
-  padding-bottom:56px;
-  border-bottom:1px solid var(--border);
+  gap:56px;margin-bottom:48px;
+  padding-bottom:48px;border-bottom:1px solid var(--border);
 }
-.footer-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.6rem;font-weight:600;letter-spacing:2px;
-  text-transform:uppercase;color:var(--white);
-  margin-bottom:16px;
-}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--white);margin-bottom:14px;}
 .footer-logo span{color:var(--gold);}
-.footer-desc{font-size:.78rem;font-weight:300;line-height:1.8;color:var(--text);max-width:240px;}
-.footer-col h4{
-  font-size:.6rem;font-weight:300;letter-spacing:3.5px;
-  text-transform:uppercase;color:var(--gold);
-  margin-bottom:20px;
-}
-.footer-col a{
-  display:block;font-size:.78rem;font-weight:300;
-  letter-spacing:.5px;color:var(--text);
-  text-decoration:none;margin-bottom:12px;
-  transition:color .2s;
-}
+.footer-desc{font-size:.78rem;font-weight:300;line-height:1.85;color:var(--text);max-width:220px;}
+.footer-col h4{font-size:.58rem;font-weight:300;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.footer-col a{display:block;font-size:.78rem;font-weight:300;letter-spacing:.3px;color:var(--text);text-decoration:none;margin-bottom:10px;transition:color .2s;}
 .footer-col a:hover{color:var(--gold);}
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:16px;
-}
-.footer-bottom p{font-size:.65rem;font-weight:300;letter-spacing:1.5px;color:var(--text-dim);}
-.footer-legal{display:flex;gap:24px;}
-.footer-legal a{font-size:.65rem;font-weight:300;letter-spacing:1.5px;color:var(--text-dim);text-decoration:none;transition:color .2s;}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer-bottom p{font-size:.62rem;font-weight:300;letter-spacing:1.5px;color:var(--text-dim);}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{font-size:.62rem;font-weight:300;letter-spacing:1px;color:var(--text-dim);text-decoration:none;transition:color .2s;}
 .footer-legal a:hover{color:var(--gold);}
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .hero{grid-template-columns:1fr;}
-  .hero-right{display:none;}
-  .philosophy{grid-template-columns:1fr;gap:48px;}
-  .steps{grid-template-columns:1fr 1fr;}
+  .features-wrap{grid-template-columns:1fr;}
+  .steps-wrap{grid-template-columns:1fr 1fr;}
   .step:nth-child(2){border-right:none;}
   .step:nth-child(3){border-top:1px solid var(--border);}
-  .pricing-grid{grid-template-columns:1fr;}
-  .testi-grid{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr 1fr;gap:40px;}
+  .pricing-wrap{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:36px;}
 }
 @media(max-width:768px){
-  nav{padding:20px 24px;}
-  .nav-links a:not(.nav-cta){display:none;}
-  .hero-left{padding:120px 24px 60px;}
+  nav{padding:18px 24px;}
+  .nav-links a:not(.nav-waitlist){display:none;}
+  .hero{padding:110px 24px 70px;}
+  .waitlist-input-row{flex-direction:column;}
+  .waitlist-input-row input{border-right:1px solid var(--border);border-bottom:none;}
+  .waitlist-btn{width:100%;}
   .section{padding:80px 24px;}
-  .philosophy{padding:80px 24px;}
-  .stats{padding:32px 24px;gap:40px;}
-  .stat-div{display:none;}
-  .steps{grid-template-columns:1fr;border:1px solid var(--border);}
-  .step{border-right:none;border-bottom:1px solid var(--border);}
-  .step:last-child{border-bottom:none;}
+  .pullquote-section{padding:72px 24px;}
   .reviews-section{padding:80px 24px;}
   .cta-section{padding:100px 24px;}
-  footer{padding:40px 24px;}
-  .footer-top{grid-template-columns:1fr;gap:32px;}
+  footer{padding:48px 24px 32px;}
+  .footer-top{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{flex-direction:column;align-items:flex-start;}
-  .form-row-2{grid-template-columns:1fr;}
-  .modal{padding:32px 24px;}
-  .cta-form input{border-right:1px solid rgba(201,168,76,.2);}
+  .steps-wrap{grid-template-columns:1fr;}
+  .step{border-right:none;border-bottom:1px solid var(--border);}
+  .step:last-child{border-bottom:none;}
+  .fg-row{grid-template-columns:1fr;}
+  .modal{padding:32px 22px;}
+  .gold-rule{padding:0 24px;}
+  .reviews-header{flex-direction:column;align-items:flex-start;}
 }
 </style>
 </head>
@@ -758,216 +490,175 @@ footer{
   <div class="logo">Grow<span>sle</span></div>
   <div class="nav-links">
     <a href="#features">Features</a>
-    <a href="#philosophy">Philosophy</a>
+    <a href="#how">How it works</a>
     <a href="#reviews">Reviews</a>
     <a href="#pricing">Pricing</a>
-    <a href="#access" class="nav-cta">Request Access</a>
+    <a href="#waitlist" class="nav-waitlist">Join the Waitlist</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <div class="eyebrow-line"></div>
-      <div class="eyebrow-text">Exclusively for discerning parents</div>
-    </div>
-    <h1 class="hero-title">
-      Your child deserves<br/>
-      more than <em>good</em><br/>
-      <span class="thin">parenting.</span>
-    </h1>
-    <p class="hero-sub">
-      Growsle is the world's most intelligent AI parenting co-pilot. Personalised daily guidance, age-exact milestones, and expert-level insight — delivered with the precision and care your family deserves.
-    </p>
-    <div class="hero-form" id="hero-form">
-      <div class="form-row">
-        <input type="email" id="hero-email" placeholder="Your email address"/>
-        <button class="btn-gold" onclick="handleSignup('hero')">Request Access</button>
-      </div>
-      <p class="hero-note">By invitation &amp; early access only. <strong>260+ families</strong> already enrolled.</p>
-    </div>
-    <div class="success-msg" id="hero-success">
-      — You are on the list. We will be in touch shortly.
-    </div>
+  <div class="hero-tag">
+    <div class="tag-line"></div>
+    <div class="tag-text">Now accepting families</div>
+    <div class="tag-line"></div>
   </div>
 
-  <div class="hero-right">
-    <div class="app-preview">
-      <div class="preview-header">
-        <div class="preview-logo">Growsle</div>
-        <div class="preview-time">Today · 7:42 AM</div>
-      </div>
-      <div class="preview-card">
-        <div class="card-tag">✦ Today's Guidance</div>
-        <div class="card-child">Noah · 2 years, 3 months</div>
-        <div class="card-text">"Noah is entering his first philosophical phase. Every 'why' is his brain building neural pathways. Answer with curiosity — try asking 'what do you think?' in return."</div>
-      </div>
-      <div class="preview-mini">
-        <div class="mini-stat">
-          <div class="mini-label">This week</div>
-          <div class="mini-val">Symbolic play</div>
-        </div>
-        <div class="mini-stat">
-          <div class="mini-label">Sleep ideal</div>
-          <div class="mini-val">11–13 hrs</div>
-        </div>
-      </div>
-      <div class="preview-qa">
-        <div class="qa-q">"He hit another child at his nursery today."</div>
-        <div class="qa-a">Entirely normal at 26 months. Toddlers strike because they lack vocabulary for large emotions. Try calmly: "Hitting hurts. Show me with words." Large reactions reinforce the behaviour.</div>
-      </div>
-      <div class="float-tag tr">✦ Age-exact intelligence</div>
-      <div class="float-tag bl">Learns your child over time</div>
+  <h1 class="hero-title">
+    Every child deserves a parent<br/>
+    who knows exactly <em>what to do.</em>
+  </h1>
+
+  <p class="hero-sub">
+    Growsle is your daily AI parenting companion — warm, personal, and calibrated to your child's exact age. The right guidance, every morning, for wherever your child is right now.
+  </p>
+
+  <div class="waitlist-box" id="hero-box">
+    <p class="waitlist-label">Join the waitlist — it's free</p>
+    <div class="waitlist-input-row">
+      <input type="email" id="hero-email" placeholder="Your email address"/>
+      <button class="waitlist-btn" onclick="handleSignup('hero')">Join Waitlist</button>
     </div>
+    <p class="waitlist-note">No credit card. No commitment. <strong>260+ families</strong> already joined.</p>
+  </div>
+  <div class="success-msg" id="hero-success">
+    ✦ &nbsp; You're on the list. We'll be in touch soon.
   </div>
 </section>
 
 <!-- STATS -->
-<div class="stats">
-  <div class="stat-item"><div class="stat-num">260+</div><div class="stat-label">Families enrolled</div></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><div class="stat-num">0–10</div><div class="stat-label">Years of coverage</div></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><div class="stat-num">Daily</div><div class="stat-label">Personalised insight</div></div>
-  <div class="stat-div"></div>
-  <div class="stat-item"><div class="stat-num">24 / 7</div><div class="stat-label">Expert AI support</div></div>
+<div class="gold-rule">
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-num">260+</div><div class="stat-label">Families waiting</div></div>
+    <div class="stat-item"><div class="stat-num">0 – 10</div><div class="stat-label">Years covered</div></div>
+    <div class="stat-item"><div class="stat-num">Daily</div><div class="stat-label">Personalised tips</div></div>
+    <div class="stat-item"><div class="stat-num">24 / 7</div><div class="stat-label">AI support</div></div>
+  </div>
 </div>
 
 <!-- FEATURES -->
-<section class="section" id="features">
-  <div class="reveal">
-    <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">What Growsle does</div></div>
-    <h2 class="s-title">Intelligence that grows<br/>with every <em>stage.</em></h2>
-    <p class="s-sub">Every feature is built around your child's exact developmental position — calibrated to the week, not the month.</p>
+<section class="section section-alt" id="features">
+  <div class="reveal section-center">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">What Growsle does</div><div class="ey-line"></div></div>
+    <h2 class="s-title">Everything you wish<br/>someone had <em>told you.</em></h2>
+    <p class="s-sub s-sub-center">Six features — each one built around your child's exact age, not a generic range.</p>
   </div>
-  <div class="features-grid reveal">
+  <div class="features-wrap reveal">
     <div class="feat">
-      <div class="feat-num">01</div>
-      <div class="feat-title">Age-Exact Daily Intelligence</div>
-      <div class="feat-desc">Guidance calibrated to your child's precise age in weeks — not broad ranges. What matters today, delivered today.</div>
+      <div class="feat-num">I</div>
+      <div class="feat-title">Age-Exact Daily Guidance</div>
+      <div class="feat-desc">Every morning a personalised tip arrives — calibrated to your child's exact age in weeks. Not "12 to 18 months." What matters for your child, today.</div>
     </div>
     <div class="feat">
-      <div class="feat-num">02</div>
-      <div class="feat-title">Instant Behaviour Analysis</div>
-      <div class="feat-desc">Describe any behaviour — tantrums, sleep shifts, social changes — and receive research-backed context in seconds. No more 3am searching.</div>
+      <div class="feat-num">II</div>
+      <div class="feat-title">"Is This Normal?" Answered</div>
+      <div class="feat-desc">Describe any behaviour — tantrums, sleep shifts, biting, social changes — and receive a calm, research-backed answer in seconds. No more late-night searching.</div>
     </div>
     <div class="feat">
-      <div class="feat-num">03</div>
+      <div class="feat-num">III</div>
       <div class="feat-title">Bespoke Bedtime Stories</div>
-      <div class="feat-desc">A new personalised story every night featuring your child's name, world, and a carefully chosen life lesson. Bedtime becomes something they treasure.</div>
+      <div class="feat-desc">A new story every night starring your child's name, favourite things, and a gentle lesson chosen just for them. Bedtime becomes something they ask for.</div>
     </div>
     <div class="feat">
-      <div class="feat-num">04</div>
+      <div class="feat-num">IV</div>
       <div class="feat-title">Weekly Milestone Reports</div>
-      <div class="feat-desc">Know precisely what to observe this week developmentally and receive a clear signal when something warrants professional attention.</div>
+      <div class="feat-desc">Know what to watch for this week and get a clear, honest signal when something is worth mentioning to your paediatrician. Confidence, not worry.</div>
     </div>
     <div class="feat">
-      <div class="feat-num">05</div>
-      <div class="feat-title">Evening Reflection Practice</div>
-      <div class="feat-desc">One meaningful question each evening. Over time, this builds profound parenting confidence and deepens your bond with your child.</div>
+      <div class="feat-num">V</div>
+      <div class="feat-title">Evening Reflection</div>
+      <div class="feat-desc">One meaningful question each evening. Over time it builds your parenting confidence and deepens your connection with your child in ways you'll feel.</div>
     </div>
     <div class="feat">
-      <div class="feat-num">06</div>
-      <div class="feat-title">Multi-Child Family Profiles</div>
-      <div class="feat-desc">Multiple children, each with their own completely personalised daily experience. No additional effort — just results for every child.</div>
+      <div class="feat-num">VI</div>
+      <div class="feat-title">Every Child, Every Stage</div>
+      <div class="feat-desc">Multiple children — each with their own fully personalised daily experience. No extra effort. Just the right guidance for every child you love.</div>
     </div>
   </div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section class="philosophy section-alt" id="philosophy">
-  <div class="phil-quote reveal">
-    "The first years of a child's life are not a rehearsal. Every stage is <em>irreplaceable.</em> Growsle exists to make sure you never miss what matters."
+<!-- PULL QUOTE -->
+<div class="pullquote-section reveal">
+  <div class="pullquote">
+    "The early years are not a rehearsal.<br/>
+    Every stage is <em>irreplaceable</em> — and every parent deserves to show up fully for it."
   </div>
-  <div class="phil-right reveal">
-    <div class="phil-point">
-      <div class="phil-point-title">Precision over generalisation</div>
-      <div class="phil-point-text">Generic parenting advice is built for the average child. Your child is not average. Growsle builds guidance from your child's exact age, temperament, and developmental stage — nothing generic ever enters your feed.</div>
-    </div>
-    <div class="phil-point">
-      <div class="phil-point-title">Intelligence that compounds</div>
-      <div class="phil-point-text">The longer you use Growsle, the smarter it becomes. The AI learns your specific child — their patterns, preferences, and pace — making every interaction more valuable than the last.</div>
-    </div>
-    <div class="phil-point">
-      <div class="phil-point-title">For every parent who shows up</div>
-      <div class="phil-point-text">Mothers, fathers, grandparents, guardians. Growsle is built for any adult who loves a child enough to want to raise them well. No exceptions, no exclusions.</div>
-    </div>
-  </div>
-</section>
+  <div class="pullquote-attr">— The Growsle Promise</div>
+</div>
 
 <!-- HOW IT WORKS -->
 <section class="section" id="how">
-  <div class="reveal">
-    <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">How it works</div></div>
-    <h2 class="s-title">Three minutes to<br/>your first <em>insight.</em></h2>
-    <p class="s-sub">No complexity. No lengthy setup. Just intelligence when you need it.</p>
+  <div class="reveal section-center">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">How it works</div><div class="ey-line"></div></div>
+    <h2 class="s-title">Ready in <em>three minutes.</em></h2>
+    <p class="s-sub s-sub-center">Simple from the very first day. No manuals, no complexity — just answers when you need them.</p>
   </div>
-  <div class="steps reveal">
+  <div class="steps-wrap reveal">
     <div class="step">
       <div class="step-num">Step I</div>
-      <div class="step-title">Create Your Child's Profile</div>
-      <div class="step-text">Enter your child's name, date of birth, and a few personality notes. Growsle builds the rest instantly.</div>
+      <div class="step-title">Tell us about your child</div>
+      <div class="step-text">Enter their name, birthday, and a few personality notes. Growsle builds their personalised profile instantly.</div>
     </div>
     <div class="step">
       <div class="step-num">Step II</div>
-      <div class="step-title">Receive Your Daily Brief</div>
-      <div class="step-text">Every morning, a personalised card: today's insight, this week's milestone, and one activity calibrated to your child's exact stage.</div>
+      <div class="step-title">Receive your daily brief</div>
+      <div class="step-text">Every morning — one tip, one milestone to watch, one activity idea. All calibrated to exactly where your child is today.</div>
     </div>
     <div class="step">
       <div class="step-num">Step III</div>
-      <div class="step-title">Ask Anything, Anytime</div>
-      <div class="step-text">Any question, any behaviour, any worry — answered with research-backed intelligence in seconds, day or night.</div>
+      <div class="step-title">Ask anything, anytime</div>
+      <div class="step-text">Any question, any worry, any behaviour — answered thoughtfully in seconds. Day or night, wherever you are.</div>
     </div>
     <div class="step">
       <div class="step-num">Step IV</div>
-      <div class="step-title">Watch Growsle Learn</div>
-      <div class="step-text">Over time, Growsle builds a deep understanding of your specific child — every suggestion more precise than the last.</div>
+      <div class="step-title">Growsle learns your child</div>
+      <div class="step-text">The longer you use Growsle, the better it knows your specific child. Every suggestion grows more precise over time.</div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section class="section section-alt" id="pricing">
-  <div class="reveal" style="text-align:center">
-    <div class="s-eyebrow" style="justify-content:center"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">Membership</div><div class="s-eyebrow-line"></div></div>
-    <h2 class="s-title">Invest in the years<br/>that <em>cannot be undone.</em></h2>
-    <p class="s-sub" style="margin:0 auto">Simple, transparent membership. No hidden costs. Cancel at any time.</p>
+  <div class="reveal section-center">
+    <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Membership</div><div class="ey-line"></div></div>
+    <h2 class="s-title">Simple, honest <em>pricing.</em></h2>
+    <p class="s-sub s-sub-center">Start free. Upgrade when you're ready. Cancel any time — no questions asked.</p>
   </div>
-  <div class="pricing-grid reveal">
-    <div class="price">
-      <div class="price-top"></div>
+  <div class="pricing-wrap reveal">
+    <div class="price-col">
+      <div class="price-top-bar"></div>
       <div class="price-plan">Essential</div>
-      <div class="price-amount">$0</div>
-      <div class="price-period">Always free</div>
+      <div class="price-num">$0</div>
+      <div class="price-per">Free forever — no card needed</div>
       <ul class="price-list">
-        <li>3 daily insights per day</li>
+        <li>3 daily tips per day</li>
         <li>5 AI questions per month</li>
         <li>1 child profile</li>
         <li>Basic milestone tracking</li>
       </ul>
-      <button class="btn-outline" onclick="handleSignup('free')">Begin Free</button>
+      <button class="btn-ghost" onclick="handleSignup('free')">Join the Waitlist</button>
     </div>
-    <div class="price featured">
-      <div class="price-top"></div>
-      <div class="price-badge">✦ Most Selected</div>
+    <div class="price-col featured">
+      <div class="price-top-bar"></div>
+      <div class="price-tag">✦ &nbsp; Most chosen</div>
       <div class="price-plan">Growsle Pro</div>
-      <div class="price-amount">$9.99</div>
-      <div class="price-period">Per month · cancel anytime</div>
+      <div class="price-num">$9.99</div>
+      <div class="price-per">Per month · cancel anytime</div>
       <ul class="price-list">
-        <li>Unlimited daily intelligence</li>
-        <li>Unlimited AI consultation</li>
+        <li>Unlimited daily guidance</li>
+        <li>Unlimited AI questions</li>
         <li>Bespoke bedtime stories</li>
-        <li>Evening reflection practice</li>
+        <li>Evening reflection prompts</li>
         <li>Weekly milestone reports</li>
       </ul>
-      <button class="btn-gold-full" onclick="handleSignup('pro')">Request Early Access</button>
+      <button class="btn-gold-full" onclick="handleSignup('pro')">Join the Waitlist</button>
     </div>
-    <div class="price">
-      <div class="price-top"></div>
+    <div class="price-col">
+      <div class="price-top-bar"></div>
       <div class="price-plan">Family</div>
-      <div class="price-amount">$14.99</div>
-      <div class="price-period">Per month · all children included</div>
+      <div class="price-num">$14.99</div>
+      <div class="price-per">Per month · all children included</div>
       <ul class="price-list">
         <li>Everything in Pro</li>
         <li>Up to 3 child profiles</li>
@@ -975,38 +666,7 @@ footer{
         <li>Printable activity library</li>
         <li>Priority support</li>
       </ul>
-      <button class="btn-outline" onclick="handleSignup('family')">Request Early Access</button>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section" id="testimonials">
-  <div class="reveal">
-    <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">Early voices</div></div>
-    <h2 class="s-title">What parents are<br/><em>saying.</em></h2>
-  </div>
-  <div class="testi-grid reveal">
-    <div class="testi">
-      <div class="testi-text">"I have been on the waitlist since the beginning. The concept alone has changed how I approach every morning with my daughter. I cannot wait for this to be in my hands."</div>
-      <div class="testi-author">
-        <div class="testi-avi">A</div>
-        <div><div class="testi-name">Amara K.</div><div class="testi-role">Mother · 14-month-old</div></div>
-      </div>
-    </div>
-    <div class="testi">
-      <div class="testi-text">"As a first-time father I have seventeen browser tabs open every night at 3am. An intelligence that answers my specific questions about my specific son, instantly — I needed this before he was born."</div>
-      <div class="testi-author">
-        <div class="testi-avi">J</div>
-        <div><div class="testi-name">James T.</div><div class="testi-role">Father · Newborn</div></div>
-      </div>
-    </div>
-    <div class="testi">
-      <div class="testi-text">"The bedtime story feature alone justifies the entire subscription. My daughter is obsessed with elephants and the cosmos — a story built entirely for her, every single night, would be extraordinary."</div>
-      <div class="testi-author">
-        <div class="testi-avi">F</div>
-        <div><div class="testi-name">Fatima O.</div><div class="testi-role">Mother · 4-year-old</div></div>
-      </div>
+      <button class="btn-ghost" onclick="handleSignup('family')">Join the Waitlist</button>
     </div>
   </div>
 </section>
@@ -1015,61 +675,55 @@ footer{
 <section class="reviews-section" id="reviews">
   <div class="reviews-header">
     <div class="reveal">
-      <div class="s-eyebrow"><div class="s-eyebrow-line"></div><div class="s-eyebrow-text">Parent reviews</div></div>
-      <h2 class="s-title" style="margin-bottom:8px">Real words from<br/>real <em>families.</em></h2>
-      <p class="s-sub">Every review is genuine — written by parents on our waitlist.</p>
+      <div class="eyebrow"><div class="ey-line"></div><div class="ey-text">Parent reviews</div></div>
+      <h2 class="s-title">What families are<br/><em>saying.</em></h2>
+      <p class="s-sub">Real words from real parents on our waitlist.</p>
     </div>
     <button class="leave-btn reveal" onclick="openModal()">✦ &nbsp; Leave a Review</button>
   </div>
 
   <div class="reviews-summary reveal" id="reviews-summary">
-    <div class="summary-score" id="avg-score">5.0</div>
+    <div class="avg-score" id="avg-score">5.0</div>
     <div>
-      <div class="summary-stars" id="avg-stars">★★★★★</div>
-      <div class="summary-count" id="review-count">0 reviews</div>
+      <div class="avg-stars" id="avg-stars">★★★★★</div>
+      <div class="avg-count" id="review-count">0 reviews</div>
     </div>
   </div>
 
   <div class="reviews-grid" id="reviews-grid">
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <div class="review-text">"The concept alone changed how I think about raising my daughter. Nothing else comes close to what Growsle is building."</div>
-      <div class="review-author"><div class="review-avi">A</div><div><div class="review-name">Amara K.</div><div class="review-meta">Mother · 14 months</div></div></div>
+      <div class="review-text">"The concept alone changed how I approach every morning with my daughter. I cannot wait for this to be in my hands."</div>
+      <div class="review-author"><div class="review-avi">A</div><div><div class="review-name">Amara K.</div><div class="review-meta">Mother · 14-month-old</div></div></div>
       <div class="review-date">March 28, 2026</div>
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <div class="review-text">"First-time dad here. I needed this three years ago. The age-exact guidance alone is worth everything."</div>
+      <div class="review-text">"As a first-time father I have so many tabs open at 3am. An AI that answers my exact questions about my exact son — I needed this before he was born."</div>
       <div class="review-author"><div class="review-avi">J</div><div><div class="review-name">James T.</div><div class="review-meta">Father · Newborn</div></div></div>
       <div class="review-date">April 1, 2026</div>
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <div class="review-text">"The bespoke bedtime story feature is unlike anything I have ever seen. My daughter would be absolutely captivated."</div>
-      <div class="review-author"><div class="review-avi">F</div><div><div class="review-name">Fatima O.</div><div class="review-meta">Mother · 4 years</div></div></div>
+      <div class="review-text">"The bespoke bedtime story feature alone is worth everything. My daughter loves elephants and space — a story built just for her every night would be magical."</div>
+      <div class="review-author"><div class="review-avi">F</div><div><div class="review-name">Fatima O.</div><div class="review-meta">Mother · 4-year-old</div></div></div>
       <div class="review-date">April 3, 2026</div>
     </div>
   </div>
 </section>
 
-<!-- MODAL -->
+<!-- REVIEW MODAL -->
 <div class="modal-overlay" id="review-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕ Close</button>
     <div class="modal-title">Share Your Thoughts</div>
-    <p class="modal-sub">You will also be added to the Growsle early access list on submission.</p>
-    <div class="form-row-2">
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" id="r-name" placeholder="e.g. Sarah M." maxlength="50"/>
-      </div>
-      <div class="form-group">
-        <label>Email Address</label>
-        <input type="email" id="r-email" placeholder="you@email.com"/>
-      </div>
+    <p class="modal-sub">You'll also be added to the Growsle waitlist when you submit.</p>
+    <div class="fg-row">
+      <div class="fg"><label>Your Name</label><input type="text" id="r-name" placeholder="e.g. Sarah M." maxlength="50"/></div>
+      <div class="fg"><label>Email Address</label><input type="email" id="r-email" placeholder="you@email.com"/></div>
     </div>
-    <div class="form-row-2">
-      <div class="form-group">
+    <div class="fg-row">
+      <div class="fg">
         <label>Child's Age</label>
         <select id="r-child">
           <option value="">Select...</option>
@@ -1083,7 +737,7 @@ footer{
           <option>Multiple children</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="fg">
         <label>Your Rating</label>
         <div class="star-row">
           <input type="radio" name="rating" id="s5" value="5"/><label for="s5">★</label>
@@ -1094,27 +748,26 @@ footer{
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <label>Your Review</label>
-      <textarea id="r-text" placeholder="Tell other parents what you think about Growsle..." maxlength="400"></textarea>
-    </div>
-    <button class="submit-btn" id="submit-btn" onclick="submitReview()">Submit Review &amp; Join Waitlist</button>
-    <p class="modal-note">By submitting you agree to our <a href="growsle-legal.html" target="_blank">Terms &amp; Privacy Policy</a>. Reviews are public.</p>
-    <div class="success-msg" id="modal-success" style="margin-top:14px;justify-content:center;">— Review submitted. Thank you for joining the Growsle family.</div>
+    <div class="fg"><label>Your Review</label><textarea id="r-text" placeholder="Tell other parents what you think about Growsle..." maxlength="400"></textarea></div>
+    <button class="submit-btn" id="submit-btn" onclick="submitReview()">Submit & Join Waitlist</button>
+    <p class="modal-note">By submitting you agree to our <a href="growsle-legal.html" target="_blank">Terms & Privacy Policy</a>.</p>
+    <div class="success-msg" id="modal-success" style="margin-top:14px;justify-content:center;">✦ &nbsp; Thank you — you're on the list.</div>
   </div>
 </div>
 
 <!-- CTA -->
-<section class="cta-section" id="access">
+<section class="cta-section" id="waitlist">
   <div class="reveal">
-    <h2 class="cta-title">Your child will not be<br/>this age <em>tomorrow.</em></h2>
-    <p class="cta-sub">Join 260+ families receiving early access to the parenting intelligence that keeps up with every stage of your child's extraordinary journey.</p>
-    <div class="cta-form">
-      <input type="email" id="cta-email" placeholder="Your email address"/>
-      <button class="btn-gold" onclick="handleSignup('cta')">Request Access</button>
+    <h2 class="cta-title">Your child won't be<br/>this age <em>tomorrow.</em></h2>
+    <p class="cta-sub">Join 260+ families getting early access. Free to join — no credit card, no commitment.</p>
+    <div class="waitlist-box" id="cta-box" style="max-width:460px;">
+      <div class="waitlist-input-row">
+        <input type="email" id="cta-email" placeholder="Your email address"/>
+        <button class="waitlist-btn" onclick="handleSignup('cta')">Join Waitlist</button>
+      </div>
     </div>
-    <div class="success-msg" id="cta-success" style="justify-content:center;margin-top:20px;">— You are on the list. We will be in touch shortly.</div>
-    <p class="cta-note">No obligation &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; Early access only</p>
+    <div class="success-msg" id="cta-success" style="justify-content:center;margin-top:16px;">✦ &nbsp; You're on the list. We'll be in touch soon.</div>
+    <p class="waitlist-note" style="margin-top:16px;">No spam &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; Early access when we launch</p>
   </div>
 </section>
 
@@ -1123,14 +776,13 @@ footer{
   <div class="footer-top">
     <div>
       <div class="footer-logo">Grow<span>sle</span></div>
-      <p class="footer-desc">The world's most intelligent parenting co-pilot. Built for every parent who shows up.</p>
+      <p class="footer-desc">The AI parenting companion built for every parent who shows up — every single day.</p>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
       <a href="#features">Features</a>
-      <a href="#philosophy">Philosophy</a>
       <a href="#how">How it works</a>
-      <a href="#pricing">Membership</a>
+      <a href="#pricing">Pricing</a>
       <a href="#reviews">Reviews</a>
     </div>
     <div class="footer-col">
@@ -1149,7 +801,7 @@ footer{
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Growsle. All rights reserved. Built with devotion for every family.</p>
+    <p>© 2026 Growsle. All rights reserved. Built with care for every family.</p>
     <div class="footer-legal">
       <a href="growsle-legal.html#terms" target="_blank">Terms</a>
       <a href="growsle-legal.html#privacy" target="_blank">Privacy</a>
@@ -1160,20 +812,20 @@ footer{
 </footer>
 
 <script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbyQOuTalcjvlU1KwnMLh1Dh2_YSd0FErysQzdFGWRf68FPlNTefmS2zB6w4nj627tfp/exec';
+
 const reveals=document.querySelectorAll('.reveal');
 const obs=new IntersectionObserver((entries)=>{
   entries.forEach((entry,i)=>{
     if(entry.isIntersecting){
-      setTimeout(()=>entry.target.classList.add('visible'),i*90);
+      setTimeout(()=>entry.target.classList.add('visible'),i*80);
       obs.unobserve(entry.target);
     }
   });
 },{threshold:.07});
 reveals.forEach(el=>obs.observe(el));
 
-const SHEETS_URL='https://script.google.com/macros/s/AKfycbyQOuTalcjvlU1KwnMLh1Dh2_YSd0FErysQzdFGWRf68FPlNTefmS2zB6w4nj627tfp/exec';
-
-async function sendToSheet(email, source){
+async function sendToSheet(email,source){
   const emails=JSON.parse(localStorage.getItem('growsle-emails')||'[]');
   if(!emails.includes(email)){emails.push(email);localStorage.setItem('growsle-emails',JSON.stringify(emails));}
   try{
@@ -1184,11 +836,11 @@ async function sendToSheet(email, source){
 
 function handleSignup(src){
   const map={
-    hero:['hero-email','hero-success','hero-form'],
-    cta:['cta-email','cta-success',null],
+    hero:['hero-email','hero-success','hero-box'],
+    cta:['cta-email','cta-success','cta-box'],
     free:[null,null,null],pro:[null,null,null],family:[null,null,null]
   };
-  const[emailId,successId,formId]=map[src]||[];
+  const[emailId,successId,boxId]=map[src]||[];
   if(emailId){
     const email=document.getElementById(emailId)?.value;
     if(!email||!email.includes('@')){
@@ -1197,8 +849,11 @@ function handleSignup(src){
       return;
     }
     if(successId)document.getElementById(successId).classList.add('show');
-    if(formId)document.getElementById(formId).style.display='none';
-    sendToSheet(email, src==='hero'?'Hero Form':'CTA Form');
+    if(boxId){
+      const row=document.getElementById(boxId).querySelector('.waitlist-input-row');
+      if(row)row.style.display='none';
+    }
+    sendToSheet(email,src==='hero'?'Hero Form':'CTA Form');
   }else{openModal();}
 }
 
@@ -1210,7 +865,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 const SEEDS=3;
 function getReviews(){return JSON.parse(localStorage.getItem('growsle-reviews')||'[]');}
 function saveReview(r){const reviews=getReviews();reviews.unshift(r);localStorage.setItem('growsle-reviews',JSON.stringify(reviews));}
-
 function esc(str){return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function renderReviews(){
@@ -1247,8 +901,8 @@ function submitReview(){
   const ratingEl=document.querySelector('input[name="rating"]:checked');
   const rating=ratingEl?parseInt(ratingEl.value):0;
   if(!name){alert('Please enter your name.');return;}
-  if(!email||!email.includes('@')){alert('Please enter a valid email address.');return;}
-  if(!text||text.length<15){alert('Please write at least 15 characters in your review.');return;}
+  if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}
+  if(!text||text.length<15){alert('Please write at least 15 characters.');return;}
   if(!rating){alert('Please select a star rating.');return;}
   const btn=document.getElementById('submit-btn');
   btn.disabled=true;btn.textContent='Submitting...';
@@ -1261,12 +915,10 @@ function submitReview(){
     renderReviews();
     setTimeout(()=>{
       closeModal();
-      document.getElementById('r-name').value='';
-      document.getElementById('r-email').value='';
-      document.getElementById('r-text').value='';
+      ['r-name','r-email','r-text'].forEach(id=>document.getElementById(id).value='');
       document.getElementById('r-child').value='';
       document.querySelectorAll('input[name="rating"]').forEach(i=>i.checked=false);
-      btn.disabled=false;btn.textContent='Submit Review & Join Waitlist';
+      btn.disabled=false;btn.textContent='Submit & Join Waitlist';
       btn.style.display='block';
       document.getElementById('modal-success').classList.remove('show');
     },2500);
